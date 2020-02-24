@@ -71,7 +71,7 @@
 			<div class="inner-sec-shop px-lg-4 px-3">
 				<h3 class="tittle-w3layouts my-lg-4 my-4">Plantas disponibles </h3>
 				<div class="row">
-				{% for plantum in plantas %}
+				{% for plantum in listado %}
 					<!-- /womens -->
 					<div class="col-md-3 product-men women_two">
 						<div class="product-googles-info googles">
@@ -140,6 +140,10 @@
 					</div>
 				{% endfor %}
 				</div>
+			{# display navigation #}
+		<div class="navigation">
+			{{ knp_pagination_render(listado) }}
+		</div>
 
 				</div>
 			</section>

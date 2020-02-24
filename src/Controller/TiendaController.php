@@ -33,7 +33,7 @@ class TiendaController extends AbstractController
         return $this->render('tienda/tienda.html.twig', ['usomedicos' => $usomedicos, "listado" => $listado]);
     }
     /**
-     * @Route("/filtros/{uso}")
+     * @Route("/filtrosProductos/{uso}")
      *
      * @param [type] $uso
      * @return void
@@ -48,7 +48,7 @@ class TiendaController extends AbstractController
         $productoFiltro = $productoRepository->getProductosUso($uso);
 
         return $this->render('tienda/tienda.html.twig', [
-            'plantas' => $productoFiltro, 'usomedicos' => $usomedicos
+            'productos' => $productoFiltro, 'usomedicos' => $usomedicos
         ]);
     }
 }

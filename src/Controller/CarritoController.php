@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Producto;
+use App\Controller\Swift_Mailer;
+use App\Controller\Swift_SmtpTransport;
+
+
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -22,9 +26,11 @@ class CarritoController extends AbstractController
      */
     public function mostrarCarrito(SessionInterface $session)
     {
+
         /* `para cada elemento del carrito se consulta la base de datos y se recuepran sus datos*/
         $productos = [];
         $carrito = $session->get('carrito');
+        $Preciototal = 0;
         /* si el carrito no existe se crea como un array vacío*/
         if (is_null($carrito)) {
             $carrito = array();
@@ -40,10 +46,13 @@ class CarritoController extends AbstractController
             $elem['precio'] = $producto->getPrecio();
             $elem['imagen'] = $producto->getImagen();
             $elem['unidades'] = implode($cantidad);
+            $elem['total'] = $producto->getPrecio() * implode($cantidad);
 
             $productos[] = $elem;
+
+            $Preciototal += $elem['precio'] * $elem['unidades'];
         }
-        return $this->render("carrito/carrito.html.twig", array('productos' => $productos));
+        return $this->render("carrito/carrito.html.twig", array('productos' => $productos, "Preciototal" => $Preciototal));
     }
     /**
      * 
@@ -102,5 +111,24 @@ class CarritoController extends AbstractController
      */
     public function realizarPedido(SessionInterface $session)
     {
+
+        // Create the Transport
+        $transport = (new Swift_SmtpTransport('smtp.gmail.org', 587, 'tls'))
+            ->setUsername('your username')
+            ->setPassword('your password');
+
+        $mailer = new Swift_Mailer($transport);
+        $message = (new \Swift_Message())
+            ->setFrom(['josemiguelnavarretemartinez@gmail.com' => 'JoseMiguel'])
+            ->setTo([$email])
+            ->setSubject("Pedido confirmado -- Plantas Medicinales")
+            ->setBody(
+                $this->renderView(
+                    'carritoCompra/correo.html.twig',
+                    array('productos' => $productos)
+                ),
+                'text/html'
+            );
+        $mailer->send($message);
     }
 }

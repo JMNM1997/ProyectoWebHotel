@@ -36,11 +36,11 @@
 								<td class="invert">
 									<div class="quantity">
 										<div class="quantity-select">
-                        <input name = 'unidades' type='number' min = '1' value = {{prod.unidades}}>
+                         {{prod.unidades}}
 										</div>
 									</div>
 								</td>
-								<td class="invert">{{ prod.precio }} € </td>
+								<td class="invert">{{ prod.total }} € </td>
 
 								<td class="invert"> <input type = 'submit' value='Eliminar'><input name = 'idproducto' type='hidden' value = {{prod.idproducto}}></td>
 
@@ -55,14 +55,18 @@
 						<h4>Lista de la compra</h4>
 						        {% for  prod in productos %}
 						<ul>
-							<li>{{ prod.nombre }}
-								<i>-</i>
-								<span>{{ prod.precio }} </span>
+							<li>{{ prod.nombre }} -->
+								{{ prod.total }} €
 							</li>
+							    {% endfor %}
+							<p>{{Preciototal}}</p>
 						</ul>
 					</div> 
-          {% endfor %}
+						<label for="correonombre">Email:</label> <br>
+					   <input style="height:40%" type="text" id="correo" name="correo">
+
        <a href = {{ path('realizarPedido') }}>Realizar Pedido</a>
+
     {% endif %}  
     	<!--checkout-->
 

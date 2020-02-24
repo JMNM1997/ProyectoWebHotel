@@ -18,9 +18,9 @@ class ProductoRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $consulta = $em->createQuery(
             'select p from App\Entity\Producto p
-            inner join p.colorflorIdcolorflor c
-            where c.color = :color'
-        )->setParameter(':uso', $uso);
+            inner join producto_has_usomedico pu ON pu.producto_idProducto = p.idProducto
+            where pu.usomedico_idUsoMedico = :usomedico_idUsoMedico'
+        )->setParameter(':usomedico_idUsoMedico', $uso);
         return $consulta->getResult();
     }
 }

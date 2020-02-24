@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Repository\PlantaRepository;
+use Knp\Component\Pager\PaginatorInterface as PaginatorInterface;
 
 
 
@@ -27,7 +28,7 @@ class PrincipalController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicio()
+    public function inicio(PaginatorInterface $paginator, Request $request): Response
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -36,10 +37,14 @@ class PrincipalController extends AbstractController
         $colorflors = $em->getRepository(Colorflor::class)->findAll();
 
 
-
+        $listado = $paginator->paginate(
+            $plantas, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+        );
 
         return $this->render('principal/index.html.twig', [
-            'plantas' => $plantas, 'colorflors' => $colorflors,
+            'listado' => $listado, 'colorflors' => $colorflors,
         ]);;
     }
 
@@ -99,17 +104,26 @@ class PrincipalController extends AbstractController
      * @param [type] $color
      * @return void
      */
-    public function ProbarConsultas($color, PlantaRepository $plantaRepository)
+    public function ProbarConsultas(PaginatorInterface $paginator, Request $request, $color, PlantaRepository $plantaRepository)
     {
         $colorflors = $this->getDoctrine()
             ->getRepository(Colorflor::class)
             ->findAll();
 
+
         $em = $this->getDoctrine()->getManager();
         $plantaFiltro = $plantaRepository->getPlantasColorFlor($color);
 
+
+
+        $listado = $paginator->paginate(
+            $plantaFiltro, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+        );
+
         return $this->render('principal/index.html.twig', [
-            'plantas' => $plantaFiltro, 'colorflors' => $colorflors
+            'listado' => $listado, 'colorflors' => $colorflors
         ]);
     }
 }

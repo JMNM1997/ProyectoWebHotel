@@ -82,7 +82,7 @@
 										<div class="googles single-item hvr-outline-out">
 											<form action= {{ path('anadir') }} method='POST'>
 												<input type="hidden" name="cmd" value="_cart">
-												<input type="number" name="unidades" value="1" min="1">
+												<input type="number" name="unidades" value="1" min="1" style="width: 250px;">
 												<input type="hidden" name="idproducto" value="{{ prod.idproducto }}">
 												<input type="hidden" name="nombre" value="{{ prod.nombre }}">
 												<input type="hidden" name="amount" value="{{ prod.precio }}">
