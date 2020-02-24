@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Colorflor{% endblock %}
+
+{% block body %}
+    <h1>Colorflor</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id color de flor</th>
+                <td>{{ colorflor.idcolorflor }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ colorflor.color }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('colorflor_index') }}">Volver atrás</a>
+
+    <a href="{{ path('colorflor_edit', {'idcolorflor': colorflor.idcolorflor}) }}">Editar</a>
+
+    {{ include('colorflor/_delete_form.html.twig') }}
+{% endblock %}

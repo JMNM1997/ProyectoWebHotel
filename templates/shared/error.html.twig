@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="alert alert-danger">
+Error: {{ error_mensaje }} <a class="btn btn-danger" href="{{ path('inicio') }}">Volver</a>
+</div>
+{% endblock %}

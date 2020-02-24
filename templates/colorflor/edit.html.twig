@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Color de flor{% endblock %}
+
+{% block body %}
+    <h1>Editar Color</h1>
+
+    {{ include('colorflor/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('colorflor_index') }}">Volver atrás</a>
+
+    {{ include('colorflor/_delete_form.html.twig') }}
+{% endblock %}

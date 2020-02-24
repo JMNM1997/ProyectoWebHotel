@@ -1,0 +1,69 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+		<div class="container">
+			<div class="inner-sec-shop px-lg-4 px-3">
+				<h3 class="tittle-w3layouts my-lg-4 mt-3">Checkout </h3>
+				<div class="checkout-right">
+					<h4>Tu carrito contiene:
+					</h4>
+    {% if productos is empty %}
+      <p> El carrito está vacío </p>
+    {% else %}
+    			<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Imagen</th>
+								<th>Cantidad</th>
+
+
+								<th>Precio</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+
+        {% for  prod in productos %}
+						<tbody>
+							<tr class="rem1">
+								<td class="invert">{{ prod.nombre }}</td>
+								<td class="invert-image">
+									<a href="single.html">
+										<img src="{{ asset('imagenes/' ~ prod.imagen) }}"  alt="" style="width: 40vh; height: 30vh;" class="img-fluid" alt="">
+									</a>
+								</td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+                        <input name = 'unidades' type='number' min = '1' value = {{prod.unidades}}>
+										</div>
+									</div>
+								</td>
+								<td class="invert">{{ prod.precio }} € </td>
+
+								<td class="invert"> <input type = 'submit' value='Eliminar'><input name = 'idproducto' type='hidden' value = {{prod.idproducto}}></td>
+
+
+							</tr>
+              </tbody>
+        {% endfor %}
+
+      </table>
+      	<div class="checkout-left row">
+					<div class="col-md-4 checkout-left-basket">
+						<h4>Lista de la compra</h4>
+						        {% for  prod in productos %}
+						<ul>
+							<li>{{ prod.nombre }}
+								<i>-</i>
+								<span>{{ prod.precio }} </span>
+							</li>
+						</ul>
+					</div> 
+          {% endfor %}
+       <a href = {{ path('realizarPedido') }}>Realizar Pedido</a>
+    {% endif %}  
+    	<!--checkout-->
+
+{% endblock %}

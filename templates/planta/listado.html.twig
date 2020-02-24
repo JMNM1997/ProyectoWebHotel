@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planta index{% endblock %}
+
+{% block body %}
+    <h1>Planta index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id Planta</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Localización</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plantum in listado %}
+            <tr>
+                <td>{{ plantum.idplanta }}</td>
+                <td>{{ plantum.nombre }}</td>
+                <td>{{ plantum.descripcion }}</td>
+                <td>{{ plantum.localizacion }}</td>
+                <td>{{ plantum.imagen }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Ejemplares no encontrados</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="count">
+    {{ listado.getTotalItemCount }}
+</div>
+
+{# display navigation #}
+<div class="navigation">
+    {{ knp_pagination_render(listado) }}
+</div>
+
+{% endblock %}
