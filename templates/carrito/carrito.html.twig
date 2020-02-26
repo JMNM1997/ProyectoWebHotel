@@ -25,6 +25,7 @@
 						</thead>
 
         {% for  prod in productos %}
+		<form action={{ path('eliminar') }} method="post">
 						<tbody>
 							<tr class="rem1">
 								<td class="invert">{{ prod.nombre }}</td>
@@ -42,11 +43,15 @@
 								</td>
 								<td class="invert">{{ prod.total }} € </td>
 
-								<td class="invert"> <input type = 'submit' value='Eliminar'><input name = 'idproducto' type='hidden' value = {{prod.idproducto}}></td>
+								<td class="invert"> <input type = 'submit' value='eliminar'>
+								<input type="hidden" name="idproducto" value="{{ prod.idproducto }}">
+								<input type="hidden" name="unidades" value="1">
+
 
 
 							</tr>
               </tbody>
+			  </form>
         {% endfor %}
 
       </table>
@@ -59,13 +64,16 @@
 								{{ prod.total }} €
 							</li>
 							    {% endfor %}
-							<p>{{Preciototal}}</p>
+							<p>Precio total --> {{ Preciototal }} €</p>
 						</ul>
-					</div> 
+					</div>
+					<form action={{ path('realizarPedido') }} method="post">
 						<label for="correonombre">Email:</label> <br>
-					   <input style="height:40%" type="text" id="correo" name="correo">
+						<input style="height:30%" type="text" id="email" name="email">
+						<input type="hidden" name="Preciototal" value="{{ Preciototal }}">
+						<input type="submit" name="submit" />
+					</form>
 
-       <a href = {{ path('realizarPedido') }}>Realizar Pedido</a>
 
     {% endif %}  
     	<!--checkout-->

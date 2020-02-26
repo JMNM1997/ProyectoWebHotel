@@ -1,8 +1,49 @@
-{# templates/correo.html.twig #}
-    Pedido {{ id }} realizado con éxito
-     <table>
-        <tr><th>Nombre</th><th>Descripción</th><th>Peso</th><th>Unidades</th></tr>
-           {% for  prod in productos %}
-            <tr><td>{{ prod.nombre }}</td><td>{{ prod.descripcion }}</td><td>{{ prod.peso }}</td><td>{{  prod.unidades  }}</td> </tr>
-           {% endfor %}
-       </table>
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<section class="banner-bottom-wthreelayouts py-lg-5 py-3">
+		<div class="container">
+			<div class="inner-sec-shop px-lg-4 px-3">
+				<h3 class="tittle-w3layouts my-lg-4 mt-3">Correo </h3>
+				<div class="checkout-right">
+					<h4>Tu pedido ha sido el siguiente:
+					</h4>
+
+    			<table class="timetable_sub">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Imagen</th>
+								<th>Cantidad</th>
+
+
+								<th>Precio</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+
+        {% for  prod in productos %}
+						<tbody>
+							<tr class="rem1">
+								<td class="invert">{{ prod.nombre }}</td>
+								<td class="invert-image">
+									<a href="single.html">
+										<img src="{{ asset('imagenes/' ~ prod.imagen) }}"  alt="" style="width: 40vh; height: 30vh;" class="img-fluid" alt="">
+									</a>
+								</td>
+								<td class="invert">
+									<div class="quantity">
+										<div class="quantity-select">
+                         {{prod.unidades}}
+										</div>
+									</div>
+								</td>
+								<td class="invert">{{ prod.total }} € </td>
+
+								<td class="invert"> <input type = 'submit' value='eliminar'>
+								<input type="hidden" name="idproducto" value="{{ prod.idproducto }}">
+								<input type="hidden" name="unidades" value="1">
+							</tr>
+              </tbody>
+    {% endfor %}
+    {% endblock %}
