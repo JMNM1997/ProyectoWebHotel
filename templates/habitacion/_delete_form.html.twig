@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('habitacion_delete', {'codhabitacion': habitacion.codhabitacion}) }}" onsubmit="return confirm('¿Seguro que deseas borrarla?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ habitacion.codhabitacion) }}">
+    <button class="btn">Borrar</button>
+</form>

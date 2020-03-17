@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitacion{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <h2>Mantenimiento habitaciones</h2>
+  <p>Bienvenido al mantenimiento de las habitaciones</p>            
+  <table class="table table-dark table-hover">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Planta</th>
+                <th>Foto</th>
+                <th>Extras</th>
+                <th>Precio</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for habitacion in habitacions %}
+            <tr>
+                <td>{{ habitacion.codhabitacion }}</td>
+                <td>{{ habitacion.tipo }}</td>
+                <td>{{ habitacion.planta }}</td>
+                <td>{{ habitacion.imagen }}</td>
+                <td>{{ habitacion.extras }}</td>
+                <td>{{ habitacion.precio }}</td>
+                <td>
+                    <a href="{{ path('habitacion_show', {'codhabitacion': habitacion.codhabitacion}) }}">Mostrar</a>
+                    <a href="{{ path('habitacion_edit', {'codhabitacion': habitacion.codhabitacion}) }}">Editar</a>
+                </td>
+            </tr>
+               {% else %}
+            <tr>
+                <td colspan="6">No encontradas</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+  </table>
+</div>
+
+    <a href="{{ path('habitacion_new') }}">Crear una nueva</a>
+{% endblock %}

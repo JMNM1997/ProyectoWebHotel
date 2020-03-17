@@ -6,30 +6,35 @@
 			{% block title %}Bienvenido!
 			{% endblock %}
 		</title>
-
-
-	<link href="{{ asset("css/bootstrap.css") }}" rel='stylesheet' type='text/css' />
-	<link href="{{ asset("css/login_overlay.css") }}" rel='stylesheet' type='text/css' />
-	<link href="{{ asset("css/style6.css") }}" rel='stylesheet' type='text/css' />
-	<link rel="stylesheet" href="{{ asset("css/shop.css") }}" type="text/css" />
-	<link rel="stylesheet" href="{{ asset("css/owl.carousel.css") }}" type="text/css" media="all">
-	<link rel="stylesheet" href="{{ asset("css/owl.theme.css") }}" type="text/css" media="all">
-	<link href="{{ asset("css/style.css") }}" rel='stylesheet' type='text/css' />
-	<link href="{{ asset("css/fontawesome-all.css") }}" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="{{ asset("css/checkout.css") }}">
-	<link href="{{ asset("css/easy-responsive-tabs.css") }}" rel='stylesheet' type='text/css' />
-
-
+<!-- CSS here -->
+		<link rel="shortcut icon" type="image/x-icon" href="{{ asset("img/favicon.ico") }}">
+		
+            <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}" rel='stylesheet' type='text/css' />
+			<link rel="stylesheet" href="{{ asset("css/owl.carousel.min.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/gijgo.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/slicknav.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/animate.min.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/magnific-popup.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/magnific-popup.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/fontawesome-all.min.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/themify-icons.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/slick.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/nice-select.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/style.css") }}" type="text/css">
+			<link rel="stylesheet" href="{{ asset("css/responsive.css") }}" type="text/css">
+			
 		{% block stylesheets %}{% endblock %}
 	</head>
 	<body>
+
+
 		<!-- CABECERA -->
 		
 		<!-- MENU -->
+
 		{% embed "shared/menu.html.twig" %}{% endembed %}
 		<!-- CUERPO -->
+
 		<div id="cuerpo">
 
             <div id="principal">
@@ -37,133 +42,53 @@
             </div>
 		</div>
 		<!-- PIE -->
+		
 		{% embed "shared/pie.html.twig" %}{% endembed %}
 
 		{% block javascripts %}
-
-
-
-	<!--search jQuery-->
-
-	<script src="{{ asset("js/modernizr-2.6.2.min") }}"></script>
-	<script src="{{ asset("js/classie-search") }}"></script>
-	<script src="{{ asset("js/demo1-search") }}"></script>
-	<!--//search jQuery-->
-	<!-- cart-js -->
-	<script src="../public/js/minicart"></script>
-	<script>
-		googles.render();
-
-		googles.cart.on('googles_checkout', function (evt) {
-			var items, len, i;
-
-			if (this.subtotal() > 0) {
-				items = this.items();
-
-				for (i = 0, len = items.length; i < len; i++) {}
-			}
-		});
-	</script>
-	<!-- //cart-js -->
-	<script>
-		$(document).ready(function () {
-			$(".button-log a").click(function () {
-				$(".overlay-login").fadeToggle(200);
-				$(this).toggleClass('btn-open').toggleClass('btn-close');
-			});
-		});
-		$('.overlay-close1').on('click', function () {
-			$(".overlay-login").fadeToggle(200);
-			$(".button-log a").toggleClass('btn-open').toggleClass('btn-close');
-			open = false;
-		});
-	</script>
-	<!-- carousel -->
-
-	<script src="{{ asset("js/owl.carousel.js") }}"></script>
-	<script>
-		$(document).ready(function () {
-			$('.owl-carousel').owlCarousel({
-				loop: true,
-				margin: 10,
-				responsiveClass: true,
-				responsive: {
-					0: {
-						items: 1,
-						nav: true
-					},
-					600: {
-						items: 2,
-						nav: false
-					},
-					900: {
-						items: 3,
-						nav: false
-					},
-					1000: {
-						items: 4,
-						nav: true,
-						loop: false,
-						margin: 20
-					}
-				}
-			})
-		})
-	</script>
-
-	<!-- //end-smooth-scrolling -->
-
-
-	<!-- dropdown nav -->
-	<script>
-		$(document).ready(function () {
-			$(".dropdown").hover(
-				function () {
-					$('.dropdown-menu', this).stop(true, true).slideDown("fast");
-					$(this).toggleClass('open');
-				},
-				function () {
-					$('.dropdown-menu', this).stop(true, true).slideUp("fast");
-					$(this).toggleClass('open');
-				}
-			);
-		});
-	</script>
-	<!-- //dropdown nav -->
-
-  <script src="{{ asset("js/move-top.js") }}"></script>
-    <script src="{{ asset("js/easing.js") }}"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            $(".scroll").click(function(event) {
-                event.preventDefault();
-                $('html,body').animate({
-                    scrollTop: $(this.hash).offset().top
-                }, 900);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            /*
-            						var defaults = {
-            							  containerID: 'toTop', // fading element id
-            							containerHoverID: 'toTopHover', // fading element hover id
-            							scrollSpeed: 1200,
-            							easingType: 'linear' 
-            						 };
-            						*/
-
-            $().UItoTop({
-                easingType: 'easeOutQuart'
-            });
-
-        });
-    </script>
-    <!--// end-smoth-scrolling -->
-
-	<script src="{{ asset("js/bootstrap.js")}}"></script>
 		
+		<!-- JS here -->
+	
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="{{ asset("js/vendor/modernizr-3.5.0.min.js") }}"></script>
+		
+
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="{{ asset("js/vendor/jquery-1.12.4.min.js") }}"></script>
+		<script src="{{ asset("js/popper.min.js") }}"></script>
+		<script src="{{ asset("js/bootstrap.min.js") }}"></script>
+
+	    <!-- Jquery Mobile Menu -->
+		<script src="{{ asset("js/jquery.slicknav.min.js") }}"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+		<script src="{{ asset("js/owl.carousel.min.js") }}"></script>
+		<script src="{{ asset("js/slick.min.js") }}"></script>
+
+        <!-- Date Picker -->
+		<script src="{{ asset("js/gijgo.min.js") }}"></script>
+
+		<!-- One Page, Animated-HeadLin -->
+		<script src="{{ asset("js/wow.min.js") }}"></script>
+		<script src="{{ asset("js/animated.headline.js") }}"></script>
+		<script src="{{ asset("js/jquery.magnific-popup.js") }}"></script>
+
+		<!-- Scrollup, nice-select, sticky -->
+		<script src="{{ asset("js/jquery.scrollUp.min.js") }}"></script>
+		<script src="{{ asset("js/jquery.nice-select.min.js") }}"></script>
+		<script src="{{ asset("js/jquery.sticky.js") }}"></script>
+        
+        <!-- contact js -->
+		<script src="{{ asset("js/contact.js") }}"></script>
+		<script src="{{ asset("js/jquery.form.js") }}"></script>
+		<script src="{{ asset("js/jquery.validate.min.js") }}"></script>
+		<script src="{{ asset("js/mail-script.js") }}"></script>
+		<script src="{{ asset("js/jquery.ajaxchimp.min.js") }}"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->
+		<script src="{{ asset("js/plugins.js") }}"></script>
+		<script src="{{ asset("js/main.js") }}"></script>
+
 		{% endblock %}
 	</body>
 </html>

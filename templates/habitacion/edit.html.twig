@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Habitacion{% endblock %}
+
+{% block body %}
+    <h1>Editar Habitacion</h1>
+
+    {{ include('habitacion/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+    <a href="{{ path('habitacion_index') }}">Volver atrás</a>
+
+    {{ include('habitacion/_delete_form.html.twig') }}
+{% endblock %}

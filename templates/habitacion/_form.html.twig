@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+<br>
+{{ form_row(form.tipo,{'label':'Tipo'}) }}
+{{ form_row(form.planta,{'label':'Planta Ubicada'}) }}
+{{ form_row(form.imagen,{'label':'Foto de la habitación'}) }}
+{{ form_row(form.extras,{'label':'Servicios Extras'}) }}
+{{ form_row(form.precio,{'label':'Precio'}) }}
+
+{{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Aceptar') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Habitacion{% endblock %}
+
+{% block body %}
+    <h1>Habitacion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ habitacion.codhabitacion }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ habitacion.tipo }}</td>
+            </tr>
+            <tr>
+                <th>Planta</th>
+                <td>{{ habitacion.planta }}</td>
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                <td>{{ habitacion.imagen }}</td>
+            </tr>
+            <tr>
+                <th>Extras</th>
+                <td>{{ habitacion.extras }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ habitacion.precio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('habitacion_index') }}">Volver atrás</a>
+
+    <a href="{{ path('habitacion_edit', {'codhabitacion': habitacion.codhabitacion}) }}">Editar</a>
+
+    {{ include('habitacion/_delete_form.html.twig') }}
+{% endblock %}
