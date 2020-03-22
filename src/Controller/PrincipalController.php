@@ -47,6 +47,7 @@ class PrincipalController extends AbstractController
             "planta" => $habitacion->getPlanta(),
             "imagen" => $habitacion->getImagen(),
             "extras" => $habitacion->getExtras(),
+            "precio" => $habitacion->getPrecio(),
         ];
 
 

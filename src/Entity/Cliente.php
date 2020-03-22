@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Cliente
  *
- * @ORM\Table(name="cliente")
+ * @ORM\Table(name="cliente", indexes={@ORM\Index(name="fk_Cliente_User1_idx", columns={"User_id"})})
  * @ORM\Entity
  */
 class Cliente
@@ -48,6 +48,16 @@ class Cliente
      * @ORM\Column(name="telefono", type="string", length=45, nullable=false)
      */
     private $telefono;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="User_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
     public function getCodcliente(): ?int
     {
@@ -98,6 +108,18 @@ class Cliente
     public function setTelefono(string $telefono): self
     {
         $this->telefono = $telefono;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

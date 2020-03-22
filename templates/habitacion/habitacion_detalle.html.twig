@@ -21,17 +21,61 @@
     </div>
 
     <div class="col-md-4">
+      <h4 class="my-3">Ubicación de la habitación (Planta)</h4>
+      <p>{{habitacion.planta}}</p>
+      <br>
+
       <h4 class="my-3">Descripción de la planta</h4>
       <p>{{habitacion.extras}}</p>
+      <br>
 
+      <h4 class="my-3">Planifica tu estancia</h4>
+          <form action="">
+              <div class="booking-wrap d-flex justify-content-between align-items-center">
+                    <!-- select in date -->
+                  <div class="single-select-box mb-30">
+                        <!-- select out date -->
+                      <div class="boking-tittle">
+                          <span> Fecha de entrada:</span>
+                      </div>
+                      <div class="boking-datepicker">
+                          <input id="datepicker1"  placeholder="10/12/2020" />
+                      </div>
+                  </div>
+                    <!-- Single Select Box -->
+                  <div class="single-select-box mb-30">
+                        <!-- select out date -->
+                      <div class="boking-tittle">
+                          <span>Fecha de salida:</span>
+                      </div>
+                      <div class="boking-datepicker">
+                          <input id="datepicker2"  placeholder="12/12/2020" />
+                      </div>
+                  </div>
+                </div>
+          </form>
+          <br>
+        <h4 class="my-3">Precio por noche</h4>
+          <p>{{habitacion.precio}} €</p>
+        <br>
+        <h4 class="my-3">Hacer reserva</h4>
+              <form action="#" method="get">
+                  <input type="hidden" id="habitacionCodhabitacion" name="habitacionCodhabitacion">
+                  <input type="hidden" id="lname" name="lname">
+                  <button class="btn">Aceptar</button>
+              </form>
+        <br>
     </div>
+    
 
   </div>
   <!-- /.row -->
-   <h3 class="my-4">Localización de la habitacion</h3>
+   <h3 class="my-4">Reserva esta magnifica habitación por los dias que desees.</h3>
 
   <!-- Related Projects Row -->
-  <h3 class="my-4">Habitación disponible</h3>
+  <h5 class="my-4">Número de habitación</h5>
+  <p>{{habitacion.id}}</p>
+
 
   <div class="row">
 
@@ -53,17 +97,12 @@
           </a>
     </div>
 
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
-            <img class="img-fluid" src="{{ asset('imagenes/' ~ habitacion.imagen) }}" alt="">
-          </a>
-    </div>
-
+</div>
   </div>
   <!-- /.row -->
 
-</div>
 <!-- /.container -->
+
 
 
 {% endblock %}

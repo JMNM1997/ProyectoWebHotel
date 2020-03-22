@@ -20,32 +20,20 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=145, nullable=false)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $rol = [];
+    private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
-
-    /**
-     * @var \Cliente
-     *
-     * @ORM\ManyToOne(targetEntity="Cliente")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Cliente_codCliente", referencedColumnName="codCliente")
-     * })
-     */
-    private $clienteCodcliente;
 
     public function getId(): ?int
     {
@@ -77,18 +65,18 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRol(): array
+    public function getRoles(): array
     {
-        $rol = $this->rol;
+        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $rol[] = 'ROLE_ADMIN';
+        $roles[] = 'ROLE_ADMIN';
 
-        return array_unique($rol);
+        return array_unique($roles);
     }
 
-    public function setRol(array $rol): self
+    public function setRoles(array $roles): self
     {
-        $this->rol = $rol;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -104,20 +92,6 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-
-
-    public function getClienteCodcliente(): ?Cliente
-    {
-        return $this->clienteCodcliente;
-    }
-
-    public function setClienteCodcliente(?Cliente $clienteCodcliente): self
-    {
-        $this->clienteCodcliente = $clienteCodcliente;
 
         return $this;
     }

@@ -3,7 +3,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post" novalidate="true">
+<form action={{ path('crear_cliente')}} method="post" novalidate="true">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -16,28 +16,37 @@
     {% else %}
                         <div class="login-wrap">
                         <div class="login-html">
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Inicia sesión</label>
+                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Registrarte</label>
                             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Información</label>
                             <div class="login-form">
                                 <div class="sign-in-htm">
                                     <div class="group">
-                                        <label for="inputEmail">Email</label>
-                                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                                        <label for="email" class="label">Email</label>
+                                        <input id="email" name="email" type="text" class="input">
                                     </div>
                                     <div class="group">
-                                        <label for="inputPassword">Contraseña</label>
-                                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                                        <label for="pass" class="label">Contraseña</label>
+                                        <input id="pass" name="password" type="password" class="input" data-type="password">
                                     </div>
                                     <div class="group">
-                                        <input id="check" type="checkbox" class="check" checked>
-                                        <label for="check"><span class="icon"></span> Recuérdame</label>
+                                        <label for="dni" class="label">DNI</label>
+                                        <input id="dni" name="dni" type="text" class="input">
                                     </div>
-                                    <div class="group" href="{{ path('inicio') }}">
+				                    <div class="group">
+                                        <label for="nombre" class="label">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" class="input">
+                                    </div>
+				                    <div class="group">
+                                        <label for="apellidos" class="label">Apellidos</label>
+                                        <input id="apellidos" name="apellidos" type="text" class="input">
+                                    </div>
+				                    <div class="group">
+                                        <label for="telefono" class="label">Teléfono</label>
+                                        <input id="telefono" name="telefono" type="text" class="input">
+                                    </div>
+									
+                                    <div class="group">
                                         <input type="submit" class="button" value="Aceptar">
-                                    </div>
-                                    <div class="hr"></div>
-                                    <div class="foot-lnk">
-                                        <a href="#forgot">¿Olvidaste la contraseña?</a>
                                     </div>
                                 </div>
                                 
