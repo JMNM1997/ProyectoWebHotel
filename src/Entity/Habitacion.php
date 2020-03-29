@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Habitacion
  *
- * @ORM\Table(name="habitacion")
+ * @ORM\Table(name="habitacion", indexes={@ORM\Index(name="fk_Habitacion_Tipo1_idx", columns={"Tipo_idTipo"})})
  * @ORM\Entity
  */
 class Habitacion
@@ -20,13 +20,6 @@ class Habitacion
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $codhabitacion;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tipo", type="string", length=45, nullable=false)
-     */
-    private $tipo;
 
     /**
      * @var string
@@ -56,21 +49,19 @@ class Habitacion
      */
     private $precio;
 
+    /**
+     * @var \Tipo
+     *
+     * @ORM\ManyToOne(targetEntity="Tipo")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Tipo_idTipo", referencedColumnName="idTipo")
+     * })
+     */
+    private $tipoIdtipo;
+
     public function getCodhabitacion(): ?int
     {
         return $this->codhabitacion;
-    }
-
-    public function getTipo(): ?string
-    {
-        return $this->tipo;
-    }
-
-    public function setTipo(string $tipo): self
-    {
-        $this->tipo = $tipo;
-
-        return $this;
     }
 
     public function getPlanta(): ?string
@@ -117,6 +108,18 @@ class Habitacion
     public function setPrecio(float $precio): self
     {
         $this->precio = $precio;
+
+        return $this;
+    }
+
+    public function getTipoIdtipo(): ?Tipo
+    {
+        return $this->tipoIdtipo;
+    }
+
+    public function setTipoIdtipo(?Tipo $tipoIdtipo): self
+    {
+        $this->tipoIdtipo = $tipoIdtipo;
 
         return $this;
     }

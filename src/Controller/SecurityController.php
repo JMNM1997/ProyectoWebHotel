@@ -67,7 +67,7 @@ class SecurityController extends AbstractController
         $contrasena = "1234";
         $encoded = $encoder->encodePassword($usuario, $contrasena);
         $usuario->setPassword($encoded);
-        $usuario->setEmail("proyectohotel@es.es");
+        $usuario->setEmail("admin@es.es");
         $em = $this->getDoctrine()->getManager();
         $em->persist($usuario);
         $em->flush();

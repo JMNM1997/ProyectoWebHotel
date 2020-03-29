@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nueva Noticia{% endblock %}
+
+{% block body %}
+    <h1>Crear nueva noticia</h1>
+
+    {{ include('noticia/_form.html.twig') }}
+
+    <a href="{{ path('noticia_index') }}">Volver atrás</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Noticia{% endblock %}
+
+{% block body %}
+    <h1>Editar Noticia</h1>
+
+    {{ include('noticia/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+    <a href="{{ path('noticia_index') }}">Volver atrás</a>
+
+    {{ include('noticia/_delete_form.html.twig') }}
+{% endblock %}

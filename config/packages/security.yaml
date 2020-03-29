@@ -33,12 +33,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/planta_detalle, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/planta_buscar, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/planta, roles: ROLE_ADMIN }
-        - { path: ^/producto, roles: ROLE_ADMIN }
-        - { path: ^/colorflor, roles: ROLE_ADMIN }
-        - { path: ^/parteutil, roles: ROLE_ADMIN }
-        - { path: ^/usomedico, roles: ROLE_ADMIN }
+        - { path: ^/habitacion_detalle, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/habitacion, roles: ROLE_ADMIN }
 
         # - { path: ^/profile, roles: ROLE_USER }

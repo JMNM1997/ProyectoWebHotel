@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Tipo{% endblock %}
+
+{% block body %}
+    <h1>Crear un nuevo tipo de habitación</h1>
+
+    {{ include('tipo/_form.html.twig') }}
+
+    <a href="{{ path('tipo_index') }}">Volver atrás</a>
+{% endblock %}

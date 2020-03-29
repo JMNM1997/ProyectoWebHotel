@@ -30,7 +30,7 @@
       <br>
 
       <h4 class="my-3">Planifica tu estancia</h4>
-          <form action="">
+          <form action={{ path('crear_reserva') }} method="post">
               <div class="booking-wrap d-flex justify-content-between align-items-center">
                     <!-- select in date -->
                   <div class="single-select-box mb-30">
@@ -39,7 +39,7 @@
                           <span> Fecha de entrada:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="datepicker1"  placeholder="10/12/2020" />
+                          <input id="fechaEntrada" name="fechaEntrada"  placeholder="10/12/2020" />
                       </div>
                   </div>
                     <!-- Single Select Box -->
@@ -49,19 +49,19 @@
                           <span>Fecha de salida:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="datepicker2"  placeholder="12/12/2020" />
+                          <input id="fechaSalida" name="fechaSalida"  placeholder="12/12/2020" />
                       </div>
                   </div>
                 </div>
-          </form>
+                
+          
           <br>
         <h4 class="my-3">Precio por noche</h4>
           <p>{{habitacion.precio}} €</p>
         <br>
         <h4 class="my-3">Hacer reserva</h4>
-              <form action="#" method="get">
-                  <input type="hidden" id="habitacionCodhabitacion" name="habitacionCodhabitacion">
-                  <input type="hidden" id="lname" name="lname">
+              
+                  <input id="habitacionCodhabitacion" name="habitacionCodhabitacion">
                   <button class="btn">Aceptar</button>
               </form>
         <br>

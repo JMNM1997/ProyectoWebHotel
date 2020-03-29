@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Habitacion{% endblock %}
+{% block title %}Habitaciones{% endblock %}
 
 {% block body %}
 
 <div class="container">
   <h2>Mantenimiento habitaciones</h2>
-  <p>Bienvenido al mantenimiento de las habitaciones</p>            
+  <p>Bienvenido al mantenimiento de las habitaciones del hotel</p>            
   <table class="table table-dark table-hover">
 
         <thead>
@@ -24,7 +24,7 @@
         {% for habitacion in habitacions %}
             <tr>
                 <td>{{ habitacion.codhabitacion }}</td>
-                <td>{{ habitacion.tipo }}</td>
+                <td>{{ habitacion.tipoIdtipo }}</td>
                 <td>{{ habitacion.planta }}</td>
                 <td>{{ habitacion.imagen }}</td>
                 <td>{{ habitacion.extras }}</td>

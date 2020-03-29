@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cliente index{% endblock %}
+{% block title %}Clientes{% endblock %}
 
 {% block body %}
-    <h1>Cliente index</h1>
+<div class="container">
+  <h2>Mantenimiento clientes</h2>
+  <p>Bienvenido al mantenimiento de los clientes del hotel</p>            
+  <table class="table table-dark table-hover">
 
-    <table class="table">
         <thead>
             <tr>
-                <th>Codcliente</th>
-                <th>Dni</th>
+                <th>ID</th>
+                <th>DNI</th>
                 <th>Nombre</th>
                 <th>Apellidos</th>
-                <th>Telefono</th>
-                <th>actions</th>
+                <th>Teléfono</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +27,16 @@
                 <td>{{ cliente.apellidos }}</td>
                 <td>{{ cliente.telefono }}</td>
                 <td>
-                    <a href="{{ path('cliente_show', {'codcliente': cliente.codcliente}) }}">show</a>
-                    <a href="{{ path('cliente_edit', {'codcliente': cliente.codcliente}) }}">edit</a>
+                    <a href="{{ path('cliente_show', {'codcliente': cliente.codcliente}) }}">Mostrar</a>
+                    <a href="{{ path('cliente_edit', {'codcliente': cliente.codcliente}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No encontrados</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('cliente_new') }}">Create new</a>
 {% endblock %}

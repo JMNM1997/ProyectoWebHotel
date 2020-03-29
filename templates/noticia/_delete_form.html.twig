@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('noticia_delete', {'codnoticia': noticium.codnoticia}) }}" onsubmit="return confirm('¿Seguro que deseas borrarla?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ noticium.codnoticia) }}">
+    <button class="btn">Borrar</button>
+</form>

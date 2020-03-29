@@ -30,9 +30,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('cliente_index') }}">back to list</a>
+    <a href="{{ path('cliente_index') }}">Volver atrás</a>
 
-    <a href="{{ path('cliente_edit', {'codcliente': cliente.codcliente}) }}">edit</a>
+    <a href="{{ path('cliente_edit', {'codcliente': cliente.codcliente}) }}">Editar</a>
 
     {{ include('cliente/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<br>
+{{ form_row(form.titular,{'label':'Titulo'}) }}
+{{ form_row(form.descripcion,{'label':'Descripción'}) }}
+{{ form_row(form.imagen,{'label':'Imagen'}) }}
+{{ form_row(form.categoriaIdcategoria,{'label':'Categoría de la noticia'}) }}
+{{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Aceptar') }}</button>
+{{ form_end(form) }}
+

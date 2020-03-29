@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tipo{% endblock %}
+
+{% block body %}
+    <h1>Tipo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ tipo.idtipo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ tipo.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tipo_index') }}">Volver atrás</a>
+
+    <a href="{{ path('tipo_edit', {'idtipo': tipo.idtipo}) }}">Editar</a>
+
+    {{ include('tipo/_delete_form.html.twig') }}
+{% endblock %}

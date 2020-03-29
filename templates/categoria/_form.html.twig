@@ -1,9 +1,6 @@
 {{ form_start(form) }}
 <br>
-{{ form_row(form.dni,{'label':'DNI'}) }}
 {{ form_row(form.nombre,{'label':'Nombre'}) }}
-{{ form_row(form.apellidos,{'label':'Apellidos'}) }}
-{{ form_row(form.telefono,{'label':'Teléfono'}) }}
 
 {{ form_rest(form) }}
     <button class="btn">{{ button_label|default('Aceptar') }}</button>
