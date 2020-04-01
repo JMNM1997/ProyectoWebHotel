@@ -39,7 +39,7 @@
                           <span> Fecha de entrada:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="fechaEntrada" name="fechaEntrada"  placeholder="10/12/2020" />
+                          <input id="datepicker1" name="fechaEntrada"  placeholder="10/12/2020" />
                       </div>
                   </div>
                     <!-- Single Select Box -->
@@ -49,7 +49,7 @@
                           <span>Fecha de salida:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="fechaSalida" name="fechaSalida"  placeholder="12/12/2020" />
+                          <input id="datepicker2" name="fechaSalida"  placeholder="12/12/2020" />
                       </div>
                   </div>
                 </div>
@@ -61,7 +61,7 @@
         <br>
         <h4 class="my-3">Hacer reserva</h4>
               
-                  <input id="habitacionCodhabitacion" name="habitacionCodhabitacion">
+                  <input type="hidden" value="{{habitacion.id}}" name="habitacionCodhabitacion">
                   <button class="btn">Aceptar</button>
               </form>
         <br>

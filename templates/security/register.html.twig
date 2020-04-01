@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Crear una cuenta{% endblock %}
 
 {% block body %}
 <form action={{ path('crear_cliente')}} method="post" novalidate="true">
@@ -16,33 +16,33 @@
     {% else %}
                         <div class="login-wrap">
                         <div class="login-html">
-                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Registrarte</label>
+                            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Registro</label>
                             <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Información</label>
                             <div class="login-form">
                                 <div class="sign-in-htm">
                                     <div class="group">
                                         <label for="email" class="label">Email</label>
-                                        <input id="email" name="email" type="text" class="input">
+                                        <input id="email" name="email" type="text" class="form-control">
                                     </div>
                                     <div class="group">
                                         <label for="pass" class="label">Contraseña</label>
-                                        <input id="pass" name="password" type="password" class="input" data-type="password">
+                                        <input id="pass" name="password" type="password" class="form-control" data-type="password">
                                     </div>
                                     <div class="group">
                                         <label for="dni" class="label">DNI</label>
-                                        <input id="dni" name="dni" type="text" class="input">
+                                        <input id="dni" name="dni" type="text" class="form-control">
                                     </div>
 				                    <div class="group">
                                         <label for="nombre" class="label">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" class="input">
+                                        <input id="nombre" name="nombre" type="text" class="form-control">
                                     </div>
 				                    <div class="group">
                                         <label for="apellidos" class="label">Apellidos</label>
-                                        <input id="apellidos" name="apellidos" type="text" class="input">
+                                        <input id="apellidos" name="apellidos" type="text" class="form-control">
                                     </div>
 				                    <div class="group">
                                         <label for="telefono" class="label">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" class="input">
+                                        <input id="telefono" name="telefono" type="text" class="form-control">
                                     </div>
 									
                                     <div class="group">
@@ -63,13 +63,21 @@
 body{
 	margin:0;
 	color:#6a6f8c;
-	background:#c8c8c8;
+	background:white;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
 .clearfix:after{clear:both;display:block}
 a{color:inherit;text-decoration:none}
+
+
+
+#infor{
+	color:black !important;
+	font-style: oblique;
+	font-weight: bold;
+}
 
 .login-wrap{
 	width:100%;
@@ -84,7 +92,7 @@ a{color:inherit;text-decoration:none}
 	height:100%;
 	position:absolute;
 	padding:90px 70px 50px 70px;
-	background-color:#BFD3C0;
+	background-color:#eafa82;
 }
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
@@ -118,7 +126,7 @@ a{color:inherit;text-decoration:none}
 .login-html .sign-in:checked + .tab,
 .login-html .sign-up:checked + .tab{
 	color:black;
-	border-color:#1161ee;
+	border-color:#dca73a;
 }
 .login-form{
 	min-height:345px;
@@ -152,7 +160,7 @@ a{color:inherit;text-decoration:none}
 	font-size:12px;
 }
 .login-form .group .button{
-	background:#1161ee;
+	background:#dca73a;
 }
 .login-form .group label .icon{
 	width:15px;
@@ -186,7 +194,7 @@ a{color:inherit;text-decoration:none}
 	color:black;
 }
 .login-form .group .check:checked + label .icon{
-	background:#1161ee;
+	background:#dca73a;
 }
 .login-form .group .check:checked + label .icon:before{
 	transform:scale(1) rotate(45deg);

@@ -43,7 +43,7 @@ class PrincipalController extends AbstractController
 
         $habitacion = [
             "id" => $habitacion->getCodhabitacion(),
-            "tipo" => $habitacion->getTipo(),
+            "tipo" => $habitacion->getTipoIdtipo(),
             "planta" => $habitacion->getPlanta(),
             "imagen" => $habitacion->getImagen(),
             "extras" => $habitacion->getExtras(),
