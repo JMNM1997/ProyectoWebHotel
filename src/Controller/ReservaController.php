@@ -98,8 +98,8 @@ class ReservaController extends AbstractController
             ->setSubject("Pedido confirmado -- Reserva MYHOTEL")
             ->setBody(
                 $this->renderView(
-                    'reserva/reservarealizada.html.twig'
-                    //variables para la vista
+                    'reserva/reservarealizada.html.twig',
+                    array('reserva' => $reserva) //variables para la vista
                 ),
                 'text/html'
             );

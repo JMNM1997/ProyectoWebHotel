@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ReservaRepository;
 use Knp\Component\Pager\PaginatorInterface as PaginatorInterface;
 
 
@@ -17,7 +18,7 @@ class PrincipalController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicio(PaginatorInterface $paginator, Request $request): Response
+    public function inicio(PaginatorInterface $paginator, Request $request, ReservaRepository $reservaRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
         $habitaciones = $em->getRepository(Habitacion::class)->findAll();
@@ -30,21 +31,25 @@ class PrincipalController extends AbstractController
             $fechaEntrada = $_GET['fechaEntrada'];
             $fechaSalida = $_GET['fechaSalida'];
             //array para guardar habitaciones alquilables
-            $habitacionesValidas = array();
-
             //comprobar que fecha de entrada del nuevo cliente es superior a fecha de salida de las reservas
-            foreach ($reservas as $reserva) {
+            //foreach ($reservas as $reserva) {
 
-                if (($fechaEntrada > $reserva->getFechaSalida())) {
+            // if (($fechaEntrada > $reserva->getFechaSalida())) {
 
-
-                    array_push($habitacionesValidas, $reservas);
-                }
-            }
+            // array_push($habitacionesValidas, $reservas);
+            // }
+            // }
             //comprobar que la habitacion no tiene reservas asginadas actualmente
 
+            // foreach ($habitaciones as $habitacion) {
 
-            //$habitacionesLibres = $reservaRepository->getPlantasFiltros($color);
+            //$habs = $habitacion->getCodhabitacion();
+            //}
+            $habitacionesLibres = $reservaRepository->getHabitacionesSinReserva();
+
+            $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles($fechaEntrada, $fechaSalida);
+            //solo tengo id
+
             /*
             foreach ($habitaciones as $habitacion) {
                 //if (//condicion) {
@@ -53,7 +58,7 @@ class PrincipalController extends AbstractController
             }
             */
             $listado = $paginator->paginate(
-                $habitacionesValidas, /* query NOT result */
+                $habitacionesDisponibles, /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
                 4 /*limit per page*/
             );

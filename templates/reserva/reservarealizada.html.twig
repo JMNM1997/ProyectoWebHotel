@@ -9,11 +9,15 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
-                            <div class="hero-caption">
-                                <span>Habitación</span>
-                                
+                            <div class="hero-caption">                        
                                 <h2>Gracias por usar nuestra web</h2>
 
+                                <h5>Datos de reserva:</h5>
+                                    <ol type=”A”>
+                                        <li>Código de reserva: {{reserva.codreserva}}</li>
+                                        <li>Fecha de entrada en la habitación: {{reserva.fechaEntrada|date('Y-m-d')}} </li>
+                                        <li>Fecha de salida en la habitación: {{reserva.fechaSalida|date('Y-m-d')}}</li>
+                                    </ol>
                                  
 
                             </div>
