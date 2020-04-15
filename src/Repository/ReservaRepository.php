@@ -37,7 +37,7 @@ class ReservaRepository extends ServiceEntityRepository
         $qb = $em->createQueryBuilder('p')
             ->select('h')->from('App\Entity\Habitacion', 'h')
             ->Join('App\Entity\Reserva', 'r', 'WITH', 'h.codhabitacion = r.habitacionCodhabitacion')
-            ->where('r.fechaSalida < :fechaE')
+            ->where(('r.fechaSalida < :fechaE'))
             ->andWhere('r.fechaEntrada > :fechaS')
             //->setParameter('fecha', $fecha);
             ->setParameters(
@@ -49,13 +49,37 @@ class ReservaRepository extends ServiceEntityRepository
             );
 
 
+        $consulta = $qb->getQuery();
+
+        return $consulta->execute();
+    }
+    public function getHabitacionesDisponibles2($fechaE, $fechaS)
+    {
+        $em = $this->getEntityManager();
+        $dateTime = new \DateTime();
+        $qb = $em->createQueryBuilder('p');
+        $qb->select('h')->from('App\Entity\Habitacion', 'h')
+            ->Join('App\Entity\Reserva', 'r', 'WITH', 'h.codhabitacion = r.habitacionCodhabitacion')
+            ->where($qb->expr()->not(
+                (':fechaE BETWEEN r.fechaEntrada AND r.fechaSalida')
+            ))
+            ->andWhere($qb->expr()->not(
+                (':fechaS BETWEEN  r.fechaSalida AND r.fechaEntrada')
+            ))
+            //->setParameter('fecha', $fecha);
+            ->setParameters(
+                [
+                    'fechaE' => $dateTime->format('Y-m-d'),
+                    'fechaS' => $dateTime->format('Y-m-d')
+
+                ]
+            );
 
         $consulta = $qb->getQuery();
 
         return $consulta->execute();
     }
 }
-
 
 
 /*

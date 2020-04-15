@@ -47,7 +47,7 @@ class PrincipalController extends AbstractController
             //}
             $habitacionesLibres = $reservaRepository->getHabitacionesSinReserva();
 
-            $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles($fechaEntrada, $fechaSalida);
+            $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles2($fechaEntrada, $fechaSalida);
             //solo tengo id
 
             /*
