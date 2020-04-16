@@ -20,8 +20,8 @@
                         <!-- logo -->
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo">
-                               <a href="index.html"><img src="img/logo/logo1.png" alt=""></a>
-                            </div>
+                               <a href="#"><img src="{{ asset('img/logo/logo1.png') }}" alt=""></a>
+                            </div>      
                         </div>
                     <div class="col-xl-8 col-lg-8">
                             <!-- main-menu -->
@@ -42,7 +42,12 @@
                                             </li>
                                         {% endif %}
 
-                                        <li><a href="{{ path("servicios_index") }}">Servicios</a></li>
+                                        <li><a href="#">Servicios</a>
+                                            <ul class="submenu">
+                                                    <li><a href="{{ path("servicios_index") }}">Servicios Hotel</a></li>
+                                                    <li><a href="{{ path("tiempo_index") }}">El Tiempo</a></li>
+                                            </ul>
+                                        </li>
                                         <li><a href="#">Reservas</a>
                                             <ul class="submenu">
                                                 <li><a href="{{ path("reserva_index") }}">Mi reserva</a>
@@ -50,6 +55,7 @@
                                             </ul>
                                         </li>
                                         <li><a href="{{ path('actualidad') }}">Actualidad</a></li>
+                                       
                                         <li><a href="#">Mi cuenta</a>
                                             <ul class="submenu">
                                                 {% if app.user %}
