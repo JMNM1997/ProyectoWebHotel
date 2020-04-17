@@ -1,0 +1,71 @@
+if ($ArrayCacheDatos && $UltimaActualizacion > time() - 3600) {
+    $arrXml = unserialize(stripcslashes($ArrayCacheDatos));
+} else {
+
+    $xmlStr = file_get_contents($xmlUrl);
+    $xmlObj = simplexml_load_string($xmlStr);
+    $arrXml = objectsIntoArray($xmlObj);
+    //Guardamos la cache
+    $ArrayCacheDatos = addslashes(serialize($arrXml));
+    $TextoCachearDatosXML = '<?php $UltimaActualizacion = ' . time() . ';
+$ArrayCacheDatos = \'' . $ArrayCacheDatos . '\'; ?>';
+    $fp = @fopen($PathFicheroCacheDatos, "w");
+    fwrite($fp, $TextoCachearDatosXML);
+    fclose($fp);
+}
+
+$SalidaImprimir = '
+<h1>El tiempo en ' . $arrXml['localidad']['nombre'] . '</h1>
+<table cellpadding="5" cellspacing="10">
+<tr>
+<th align="left">Hora&nbsp</th>
+<th align="left">Predicción&nbsp</th>
+<th align="left">Temp&nbsp</th>
+<th align="left" colspan="2">Viento&nbsp</th>
+<th align="left">Presión&nbsp</th>
+<th align="left">Humedad&nbsp</th>
+</tr>';
+
+foreach ($arrXml['pronostico_horas']['hora'] as $valor) {
+    $SalidaImprimir .= '
+<tr>
+<td align="right">' . $valor['hora_datos'] . '</td>
+<td><img height="20" alt="' . $valor['texto'] . '" src="' . $valor['icono'] . '" style="float:left; margin-right:5px;" width="20" />' . $valor['texto'] . '</td>
+<td align="right">' . $valor['temperatura'] . ' &deg;C</td>
+<td><img alt="' . $valor['dir_viento'] . '" src="' . $valor['ico_viento'] . '" /></td>
+<td align="right">' . $valor['viento'] . ' km/h</td>
+<td align="right">' . $valor['presion'] . ' hPa</td>
+<td align="right">' . $valor['humedad'] . ' %</td>
+</tr>';
+}
+
+$SalidaImprimir .= '</table><h3>Pronóstico 7 días</h3>';
+
+foreach ($arrXml['pronostico_dias']['dia'] as $valor) {
+    $SalidaImprimir .= '
+<table cellpadding="0" cellspacing="10">
+<tr>
+<th align="left" colspan="2"><strong>' . $valor['fecha_larga'] . '</strong></th>
+<th>Máxima</th>
+<th>Mínima</th>
+</tr>
+<tr>
+<td><img alt="' . $valor['texto'] . '" height="50" src="' . $valor['icono'] . '" width="50" /></td>
+<td>' . $valor['texto'] . '</td>
+<td align="center" class="max">' . $valor['temp_maxima'] . ' &deg;C</td>
+<td align="center" class="min">' . $valor['temp_minima'] . ' &deg;C</td>
+</tr>
+<tr>
+<td colspan="4">
+<table cellpadding="0" cellspacing="3">
+<tr><td>Viento: ' . $valor['dir_viento'] . ' ' . $valor['viento'] . ' km/h</td></tr>
+<tr><td>Humedad: ' . $valor['humedad'] . ' %</td></tr>
+<tr><td>Salida sol: ' . $valor['salida_sol'] . ' (Hora local)</td></tr>
+<tr><td>Puesta sol: ' . $valor['puesta_sol'] . ' (Hora local)</td></tr>
+<tr><td>Salida luna: ' . $valor['salida_luna'] . ' (Hora local)</td></tr>
+<tr><td>Puesta luna: ' . $valor['puesta_luna'] . ' (Hora local)</td></tr>
+</table>
+</td>
+</tr>
+</table>';
+}

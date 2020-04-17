@@ -30,54 +30,22 @@ class ReservaRepository extends ServiceEntityRepository
         return $consulta->getResult();
     }
 
-    public function getHabitacionesDisponibles($fechaE, $fechaS)
+    public function getHabitacionesDisponibles(\Datetime $fechaentrada, \Datetime $fechasalida)
     {
+
         $em = $this->getEntityManager();
-        $dateTime = new \DateTime();
-        $qb = $em->createQueryBuilder('p')
-            ->select('h')->from('App\Entity\Habitacion', 'h')
-            ->Join('App\Entity\Reserva', 'r', 'WITH', 'h.codhabitacion = r.habitacionCodhabitacion')
-            ->where(('r.fechaSalida < :fechaE'))
-            ->andWhere('r.fechaEntrada > :fechaS')
-            //->setParameter('fecha', $fecha);
-            ->setParameters(
-                [
-                    'fechaE' => $dateTime->format('Y-m-d'),
-                    'fechaS' => $dateTime->format('Y-m-d')
 
-                ]
-            );
+        $consulta = $em->createQuery(
+
+            'select h from App\Entity\Habitacion h
+            where NOT EXISTS (
+                SELECT r FROM App\Entity\Reserva r where h.codhabitacion = r.habitacionCodhabitacion and(
+                     :fechaentrada between r.fechaEntrada and r.fechaSalida
+                    or :fechasalida between r.fechaEntrada and r.fechaSalida))'
+        )->setParameter('fechaentrada', $fechaentrada)->setParameter('fechasalida', $fechasalida);
 
 
-        $consulta = $qb->getQuery();
-
-        return $consulta->execute();
-    }
-    public function getHabitacionesDisponibles2($fechaE, $fechaS)
-    {
-        $em = $this->getEntityManager();
-        $dateTime = new \DateTime();
-        $qb = $em->createQueryBuilder('p');
-        $qb->select('h')->from('App\Entity\Habitacion', 'h')
-            ->Join('App\Entity\Reserva', 'r', 'WITH', 'h.codhabitacion = r.habitacionCodhabitacion')
-            ->where($qb->expr()->not(
-                (':fechaE BETWEEN r.fechaEntrada AND r.fechaSalida')
-            ))
-            ->andWhere($qb->expr()->not(
-                (':fechaS BETWEEN  r.fechaSalida AND r.fechaEntrada')
-            ))
-            //->setParameter('fecha', $fecha);
-            ->setParameters(
-                [
-                    'fechaE' => $dateTime->format('Y-m-d'),
-                    'fechaS' => $dateTime->format('Y-m-d')
-
-                ]
-            );
-
-        $consulta = $qb->getQuery();
-
-        return $consulta->execute();
+        return $consulta->getResult();
     }
 }
 

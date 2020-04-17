@@ -2,6 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
+        "dwr/openweather-bundle": "2.0",
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -32,6 +33,7 @@
         "symfony/validator": "5.0.*",
         "symfony/web-link": "5.0.*",
         "symfony/yaml": "5.0.*"
+        
     },
     "require-dev": {
         "symfony/debug-pack": "*",

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ReservaRepository;
 use Knp\Component\Pager\PaginatorInterface as PaginatorInterface;
+use App\Controller\DateTime;
 
 
 class PrincipalController extends AbstractController
@@ -26,37 +27,16 @@ class PrincipalController extends AbstractController
         // fechas
         if (isset($_GET['fechaEntrada']) && (isset($_GET['fechaSalida']))) {
 
-            $reservas = $em->getRepository(Reserva::class)->findAll();
+            //Vamos a pasar los valores a tipo fecha para poder mandarselos luego al método.
+            $fechaEntrada = new \DateTime($_GET['fechaEntrada']);
+            $fechaSalida = new \DateTime($_GET['fechaSalida']);
 
-            $fechaEntrada = $_GET['fechaEntrada'];
-            $fechaSalida = $_GET['fechaSalida'];
-            //array para guardar habitaciones alquilables
-            //comprobar que fecha de entrada del nuevo cliente es superior a fecha de salida de las reservas
-            //foreach ($reservas as $reserva) {
+            //fecha entrada y salida. 
+            //Devuelve la lista de habitaciones disponibles a mostrar, filtrando las que no pueden mostrarse por estar ocupadas
+            //en esas determinadas fechas.
 
-            // if (($fechaEntrada > $reserva->getFechaSalida())) {
-
-            // array_push($habitacionesValidas, $reservas);
-            // }
-            // }
-            //comprobar que la habitacion no tiene reservas asginadas actualmente
-
-            // foreach ($habitaciones as $habitacion) {
-
-            //$habs = $habitacion->getCodhabitacion();
-            //}
-            $habitacionesLibres = $reservaRepository->getHabitacionesSinReserva();
-
-            $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles2($fechaEntrada, $fechaSalida);
-            //solo tengo id
-
-            /*
-            foreach ($habitaciones as $habitacion) {
-                //if (//condicion) {
-                //array_push($habitacionesValidas, $reservas);
-                //}
-            }
-            */
+            $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles($fechaEntrada, $fechaSalida);
+            //resultados paginados
             $listado = $paginator->paginate(
                 $habitacionesDisponibles, /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
