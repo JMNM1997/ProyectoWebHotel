@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reserva;
 use App\Entity\Cliente;
 use App\Entity\Habitacion;
+use App\Entity\Comentario;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -123,6 +124,48 @@ class ReservaController extends AbstractController
             $entityManager->remove($reserva);
             $entityManager->flush();
         }
+
+        return $this->redirectToRoute('reserva_index');
+    }
+    /**
+     * @Route ("/evaluar", name="evaluar")
+     * 
+     */
+    public function evaluar()
+    {
+        $comentario = new Comentario();
+
+        $id = $this->getUser()->getId();
+
+        $userid = $this->getDoctrine()->getRepository(Cliente::class)->findOneBy(['user' => $id]);
+        $comentario->setClienteCodcliente($userid);
+
+        $review = $_POST['review'];
+
+        $comentario->setTexto($review);
+
+        $radioVal = $_POST["grp1"];
+
+        if ($radioVal == "1") {
+            $comentario->setValoracion(1);
+        }
+        if ($radioVal == "2") {
+            $comentario->setValoracion(2);
+        }
+        if ($radioVal == "3") {
+            $comentario->setValoracion(3);
+        }
+        if ($radioVal == "4") {
+            $comentario->setValoracion(4);
+        }
+        if ($radioVal == "5") {
+            $comentario->setValoracion(5);
+        }
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comentario);
+        $em->flush();
+
+
 
         return $this->redirectToRoute('reserva_index');
     }

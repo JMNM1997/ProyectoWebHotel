@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Cliente;
+use App\Entity\Comentario;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +19,13 @@ class ServiciosController extends AbstractController
      */
     public function inicio(): Response
     {
+        $comentarios = $this->getDoctrine()
+            ->getRepository(Comentario::class)
+            ->findAll();
 
 
-        return $this->render('servicios/servicios.html.twig');
+        return $this->render('servicios/servicios.html.twig', [
+            'comentarios' => $comentarios
+        ]);
     }
 }

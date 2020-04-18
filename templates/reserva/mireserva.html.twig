@@ -3,7 +3,12 @@
 {% block title %}Tu reserva{% endblock %}
 
 {% block body %}
-    <div class="container">
+
+    <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="{{ asset('img/hero/roomspage_hero.jpg') }}" >
+    </div>
+    <br>
+        <div class="container">
+    
             <div class="row ">
             {% for reserva in reserva %}
                         <div class="col-xs-12 col-md-6 col-lg-3">
@@ -39,15 +44,44 @@
                                     </small>
                                 </div>
                                
-                            </div>
-                    
+                        </div>
+                    <br>
+
             </div>
             {% endfor %}
+
         </div>
-        <!-- slider Area End-->
+
+
+
+        <div class="midiv">
+                <form action={{ path('evaluar') }} method='POST'>
+                    <h3> Describe tu experiencia </h3>
+                    <textarea class="form-control" id="mitextarea" name="review" rows="3"></textarea>
+
+                        <h4>¿Cómo calificarias la experiencia en nuestro hotel?</h4>
+                
+                        <div class="radio">
+                        <label><input type="radio"  name="grp1" value="1" />Mala</label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio"  name="grp1" value="2"/>Aceptable</label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="grp1" value="3"/>Buena</label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="grp1" value="4"/>Notable</label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="grp1" value="5" checked/>Sobresaliente</label>
+                        </div>
+                    <p><button type="submit" class="btn btn-primary">Enviar</button></p>
+                </form>
+        <div>
 
 <style type="css">
-    
+
 a {
  -webkit-transition: .25s all;
  transition: .25s all;
