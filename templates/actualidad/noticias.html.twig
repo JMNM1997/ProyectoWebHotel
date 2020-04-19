@@ -24,8 +24,9 @@
     <section class="blog_area section-padding">
         <div class="container">
             <div class="row">
-            {% for noticias in noticias %}
+            
                 <div class="col-lg-8 mb-5 mb-lg-0">
+                {% for noticias in listado %}
                     <div class="blog_left_sidebar">
                         <article class="blog_item">
                             <div class="blog_item_img">             
@@ -43,36 +44,15 @@
                                 <p>{{ noticias.descripcion }}</p>
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="fa fa-user"></i> {{ noticias.categoriaIdcategoria }}</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> Comentarios</a></li>
                                 </ul>
                             </div>
                         </article>
-                    {% endfor %}
-
-
-
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    
                     </div>
+                    {% endfor %}
                 </div>
+
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
                         <aside class="single_sidebar_widget search_widget">
@@ -81,7 +61,7 @@
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" placeholder='Buscador palabra clave'
                                             onfocus="this.placeholder = ''"
-                                            onblur="this.placeholder = 'Search Keyword'">
+                                            onblur="this.placeholder = 'Buscar'">
                                         <div class="input-group-append">
                                             <button class="btn" type="button"><i class="ti-search"></i></button>
                                         </div>
@@ -99,7 +79,6 @@
                                 <li>
                                     <a href="#" class="d-flex">
                                         <p>{{ categorias.nombre }}</p>
-                                        <p>09</p>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -107,44 +86,18 @@
                         </aside>
 
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Recent Post</h3>
+                            <h3 class="widget_title">Últimas publicaciones</h3>
+                            {% for ultimasNoticias in ultimasNoticias %}
                             <div class="media post_item">
-                           
-                                <img src="{{ asset('img/post/post_1.png') }}" alt="post">
+                                <img src="{{ asset('imagenes/' ~ ultimasNoticias.imagen) }}" height="92" width="92" alt="post">
                                 <div class="media-body">
                                     <a href="single-blog.html">
-                                        <h3>From life was you fish...</h3>
-                                    </a>
-                                    <p>January 12, 2019</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="{{ asset('img/post/post_2.png') }}" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>The Amazing Hubble</h3>
-                                    </a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="{{ asset('img/post/post_3.png') }}" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>Astronomy Or Astrology</h3>
-                                    </a>
-                                    <p>03 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="{{ asset('img/post/post_4.png') }}" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>Asteroids telescope</h3>
+                                        <h3>{{ ultimasNoticias.titular }}</h3>
                                     </a>
                                     <p>01 Hours ago</p>
                                 </div>
                             </div>
+                            {% endfor %}
                         </aside>
                         <aside class="single_sidebar_widget tag_cloud_widget">
                             <h4 class="widget_title">Tag Clouds</h4>
@@ -178,7 +131,7 @@
 
 
                         <aside class="single_sidebar_widget instagram_feeds">
-                            <h4 class="widget_title">Instagram Feeds</h4>
+                            <h4 class="widget_title">Visto en Instagram</h4>
                             <ul class="instagram_row flex-wrap">
                                 <li>
                                     <a href="#">
@@ -215,15 +168,15 @@
 
 
                         <aside class="single_sidebar_widget newsletter_widget">
-                            <h4 class="widget_title">Newsletter</h4>
+                            <h4 class="widget_title">Mantente informado</h4>
 
                             <form action="#">
                                 <div class="form-group">
                                     <input type="email" class="form-control" onfocus="this.placeholder = ''"
-                                        onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+                                        onblur="this.placeholder = 'Enter email'" placeholder='Introduce tu email' required>
                                 </div>
                                 <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Subscribe</button>
+                                    type="submit">Subcribirse</button>
                             </form>
                         </aside>
                     </div>
@@ -231,5 +184,11 @@
             </div>
         </div>
     </section>
+
+                        <div class="row justify-content-center">
+                                <div class="navigation">
+                                    {{ knp_pagination_render(listado) }}
+                                </div>
+                    </div>
 
 {% endblock %}

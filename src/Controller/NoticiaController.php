@@ -80,7 +80,19 @@ class NoticiaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imagen = $form['imagen']->getData();
+            if ($imagen) {
+                $nombrearchivo = $imagen->getClientOriginalName();
+                $imagen->move(
+                    $this->getParameter('directorio_imagenes'),
+                    $nombrearchivo
+                );
+                $noticium->setImagen($nombrearchivo);
+            }
+
             $this->getDoctrine()->getManager()->flush();
+
 
             return $this->redirectToRoute('noticia_index');
         }
