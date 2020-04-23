@@ -1,0 +1,18 @@
+
+                <div id="plantaDiv" class="container">
+                    {% for habitaciones in listado %}
+                    <div class="col-xl-4 col-lg-6 col-md-6">
+                        <!-- Single Room -->
+                        <div class="single-room mb-50">
+                            <div class="room-img">
+                               <a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}"><img src="{{ asset('imagenes/' ~ habitaciones.imagen) }}" alt=""></a>
+                            </div>
+                            <div class="room-caption">
+                                <h3><a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}">{{ habitaciones.tipoIdtipo }}</a></h3>
+                                <div class="per-night">
+                                    <span>{{ habitaciones.precio }} € <span>/ por noche</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}

@@ -32,4 +32,21 @@ class ActualidadRepository extends ServiceEntityRepository
 
         return $consulta->getResult();
     }
+
+    // Pasamos una palabra y buscamos gracias al parámetro LIKE si esa palabra está contenida en un titular de noticia
+    public function buscador($palabra)
+    {
+
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery(
+
+            'select n from App\Entity\Noticia n
+            Where n.titular LIKE :palabra'
+        )->setParameter('palabra', '%' . $palabra . '%');
+
+
+
+
+        return $consulta->getResult();
+    }
 }

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Complemento{% endblock %}
+
+{% block body %}
+    <h1>Complemento</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idcomplemento</th>
+                <td>{{ complemento.idcomplemento }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ complemento.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('complemento_index') }}">back to list</a>
+
+    <a href="{{ path('complemento_edit', {'idcomplemento': complemento.idcomplemento}) }}">edit</a>
+
+    {{ include('complemento/_delete_form.html.twig') }}
+{% endblock %}

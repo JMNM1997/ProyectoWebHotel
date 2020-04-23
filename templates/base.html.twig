@@ -6,13 +6,13 @@
 			{% block title %}Bienvenido!
 			{% endblock %}
 		</title>
-<!-- CSS here -->
+		<!-- CSS here -->
+
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset("img/favicon.ico") }}">
+		<!-- Hay que leer antes jquery que bootstrap -->
+		<script src="{{ asset("js/jquery.min.js") }}"></script>
+		<script src="{{ asset("js/bootstrap2.min.js") }}"></script>
 
-
-
-
-		
             <link rel="stylesheet" href="{{ asset("css/bootstrap.min.css") }}" rel='stylesheet' type='text/css' />
 			<link rel="stylesheet" href="{{ asset("css/owl.carousel.min.css") }}" type="text/css">
 			<link rel="stylesheet" href="{{ asset("css/gijgo.css") }}" type="text/css">
@@ -27,9 +27,9 @@
 			<link rel="stylesheet" href="{{ asset("css/style.css") }}" type="text/css">
 			<link rel="stylesheet" href="{{ asset("css/responsive.css") }}" type="text/css">
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+			<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+			<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 			
 		{% block stylesheets %}{% endblock %}
@@ -57,6 +57,8 @@
 		{% block javascripts %}
 		
 		<!-- JS here -->
+		<script src="{{ asset("js/jquery.min.js") }}"></script>
+		<script src="{{ asset("js/bootstrap2.min.js") }}"></script>
 	
 		<!-- All JS Custom Plugins Link Here here -->
         <script src="{{ asset("js/vendor/modernizr-3.5.0.min.js") }}"></script>

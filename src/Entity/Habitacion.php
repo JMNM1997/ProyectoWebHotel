@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,13 +38,6 @@ class Habitacion
     private $imagen;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="extras", type="string", length=45, nullable=false)
-     */
-    private $extras;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="precio", type="float", precision=10, scale=0, nullable=false)
@@ -58,6 +53,29 @@ class Habitacion
      * })
      */
     private $tipoIdtipo;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Complemento", inversedBy="habitacionCodhabitacion")
+     * @ORM\JoinTable(name="habitacion_has_complemento",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="Habitacion_codHabitacion", referencedColumnName="codHabitacion")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="Complemento_idComplemento", referencedColumnName="idComplemento")
+     *   }
+     * )
+     */
+    private $complementoIdcomplemento;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->complementoIdcomplemento = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getCodhabitacion(): ?int
     {
@@ -88,18 +106,6 @@ class Habitacion
         return $this;
     }
 
-    public function getExtras(): ?string
-    {
-        return $this->extras;
-    }
-
-    public function setExtras(string $extras): self
-    {
-        $this->extras = $extras;
-
-        return $this;
-    }
-
     public function getPrecio(): ?float
     {
         return $this->precio;
@@ -124,5 +130,30 @@ class Habitacion
         return $this;
     }
 
+    /**
+     * @return Collection|Complemento[]
+     */
+    public function getComplementoIdcomplemento(): Collection
+    {
+        return $this->complementoIdcomplemento;
+    }
+
+    public function addComplementoIdcomplemento(Complemento $complementoIdcomplemento): self
+    {
+        if (!$this->complementoIdcomplemento->contains($complementoIdcomplemento)) {
+            $this->complementoIdcomplemento[] = $complementoIdcomplemento;
+        }
+
+        return $this;
+    }
+
+    public function removeComplementoIdcomplemento(Complemento $complementoIdcomplemento): self
+    {
+        if ($this->complementoIdcomplemento->contains($complementoIdcomplemento)) {
+            $this->complementoIdcomplemento->removeElement($complementoIdcomplemento);
+        }
+
+        return $this;
+    }
 
 }

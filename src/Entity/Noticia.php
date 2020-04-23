@@ -43,6 +43,13 @@ class Noticia
     private $imagen;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="datetime", nullable=false)
+     */
+    private $fecha;
+
+    /**
      * @var \Categoria
      *
      * @ORM\ManyToOne(targetEntity="Categoria")
@@ -93,6 +100,18 @@ class Noticia
         return $this;
     }
 
+    public function getFecha(): ?\DateTimeInterface
+    {
+        return $this->fecha;
+    }
+
+    public function setFecha(\DateTimeInterface $fecha): self
+    {
+        $this->fecha = $fecha;
+
+        return $this;
+    }
+
     public function getCategoriaIdcategoria(): ?Categoria
     {
         return $this->categoriaIdcategoria;
@@ -103,9 +122,5 @@ class Noticia
         $this->categoriaIdcategoria = $categoriaIdcategoria;
 
         return $this;
-    }
-    public function __toString()
-    {
-        return $this->titular;
     }
 }

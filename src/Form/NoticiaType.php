@@ -4,12 +4,14 @@ namespace App\Form;
 
 use App\Entity\Noticia;
 use App\Entity\Categoria;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class NoticiaType extends AbstractType
 {
@@ -18,6 +20,13 @@ class NoticiaType extends AbstractType
         $builder
             ->add('titular')
             ->add('descripcion')
+
+            ->add('fecha', DateType::class, array(
+                'required' => false,
+                'widget' => 'single_text',
+                'empty_data'  => '',
+            ))
+
             ->add('imagen', FileType::class, [
                 'label' => "Fichero de habitación",
                 "attr" => array("class" => "form-control"),

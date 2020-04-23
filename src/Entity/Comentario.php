@@ -45,8 +45,6 @@ class Comentario
      */
     private $clienteCodcliente;
 
-
-
     public function getIdcomentario(): ?int
     {
         return $this->idcomentario;
@@ -87,4 +85,6 @@ class Comentario
 
         return $this;
     }
+
+
 }

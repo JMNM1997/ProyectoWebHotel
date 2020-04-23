@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+<br>
+{{ form_row(form.nombre,{'label':'Nombre'}) }}
+
+
+{{ form_rest(form) }}
+    <button class="btn">{{ button_label|default('Aceptar') }}</button>
+{{ form_end(form) }}
+

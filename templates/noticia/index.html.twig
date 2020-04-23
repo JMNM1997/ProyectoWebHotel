@@ -12,6 +12,7 @@
             <tr>
                 <th>ID</th>
                 <th>Descripción</th>
+                <th>Fecha</th>
                 <th>Foto</th>
                 <th>Acción</th>
             </tr>
@@ -21,6 +22,7 @@
             <tr>
                 <td>{{ noticium.codnoticia }}</td>
                 <td>{{ noticium.descripcion }}</td>
+                <td>{{ noticium.fecha|date('Y-m-d') }}</td>
                 <td>{{ noticium.imagen }}</td>
                 <td>
                     <a href="{{ path('noticia_show', {'codnoticia': noticium.codnoticia}) }}">Mostrar</a>

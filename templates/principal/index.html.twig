@@ -4,6 +4,38 @@
 
 {% block body %}
 
+
+<script>
+  $(document).ready(function(){
+
+    $('#botonFiltro').click(function (){
+
+        var planta= $("#planta").val();
+        var precio= $("#precio").val();
+        var complemento= $("#nombre").val();
+
+        $.ajax({
+        url:'{{ (path('habitacionFiltro')) }}',
+        method: "POST",
+        data: {
+        planta: planta, precio: precio, complemento: complemento
+        },
+        success: function (data) {
+
+            console.log(data)
+            $('#plantaDiv').html(data);
+        }
+    });
+
+
+
+    });
+    
+
+  });
+</script>
+
+
 <main>
 
         <!-- slider Area Start-->
@@ -81,7 +113,7 @@
                         </div>
                    </div>
                     <!-- Single Select Box -->
-                    <button type="submit" class="btn btn-outline-success">Aplicar</button>
+                    <button type="submit" class="btn btn-outline-success">Buscar</button>
                
 
                 </div>
@@ -131,13 +163,93 @@
                         <div class="font-back-tittle mb-45">
                             <div class="archivment-front">
                                 <h3>Habitaciones</h3>
+                                <br><br>
                             </div>
                             <h3 class="archivment-back">Nuestras habitaciones</h3>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                	{% for habitaciones in listado %}
+                <!-- aqui estaba antes el for habitaciones in listado -->
+                	
+                   <!-- test --> 
+                        <div class="booking-area">
+                            <div class="container">
+                                <div class="row ">
+                                    <div class="col-12">
+                                        <form method="get">
+                                            <div class="booking-wrap d-flex justify-content-between align-items-center">
+                                            <!-- Single Select Box -->
+                                                    <div class="single-select-box mb-30">
+                                                        <div class="boking-tittle">
+                                                            <span>Planta:</span>
+                                                        </div>
+                                                        <div class="select-this">
+                                                            <form action="#">
+                                                                <div class="select-itms">
+                                                                    <select name="planta" id="planta">
+                                                                        <option value="1">1ª</option>
+                                                                        <option value="2">2ª</option>
+                                                                        <option value="3">3ª</option>
+                                                                        <option value="4">4ª</option>
+                                                                    </select>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+
+                                            <!-- Single Select Box -->
+                                                    <div class="single-select-box mb-30">
+                                                        <div class="boking-tittle">
+                                                            <span>Precio Max (Noche):</span>
+                                                        </div>
+                                                        <div class="select-this">
+                                                            <form action="#">
+                                                                <div class="select-itms">
+                                                                    <select name="precio" id="precio">
+                                                                        <option value="50">50€</option>
+                                                                        <option value="100">100€</option>
+                                                                        <option value="200">200€</option>
+                                                                        <option value="250">+ 250€</option>
+                                                                    </select>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="single-select-box mb-30">
+                                                        <div class="boking-tittle">
+                                                            <span>Complementos:</span>
+                                                        </div>
+                                                    {% for nombre in complemento %}
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" id="nombre" name="nombre[]" value= "{{ nombre.nombre }}">
+                                                                <label style="color: #dca73a;" for="complemento">  {{ nombre.nombre }} </label>
+                                                            </div>
+                                                            
+
+                                                    {% endfor %}
+                                                    </div>
+                                                    
+                                                                                    
+
+                                                <!-- Single Select Box -->
+                                                <button type="button" id="botonFiltro" class="btn btn-outline-success">Filtrar</button>
+                                    
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        <!-- Booking Room End-->
+        <!-- test --> 
+                <div id="plantaDiv" class="container">
+                    {% for habitaciones in listado %}
                     <div class="col-xl-4 col-lg-6 col-md-6">
                         <!-- Single Room -->
                         <div class="single-room mb-50">
@@ -153,6 +265,7 @@
                         </div>
                     </div>
                     {% endfor %}
+                
                 </div>
                 <div class="row justify-content-center">
                             <div class="navigation">
@@ -190,4 +303,12 @@
         <!-- Gallery img End-->
     </main>
 
+
+
+
 {% endblock %}
+
+
+
+
+

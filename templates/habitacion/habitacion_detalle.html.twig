@@ -26,7 +26,10 @@
       <br>
 
       <h4 class="my-3">Descripción de la planta</h4>
-      <p>{{habitacion.extras}}</p>
+      <p> {% for nombre in habitacion.complementoIdcomplemento %}
+            {{ nombre.nombre }} <br>
+          {% endfor %}
+      </p>
       <br>
 
       <h4 class="my-3">Planifica tu estancia</h4>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Complemento{% endblock %}
+
+{% block body %}
+    <h1>Edit Complemento</h1>
+
+    {{ include('complemento/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('complemento_index') }}">Volver atrás</a>
+
+    {{ include('complemento/_delete_form.html.twig') }}
+{% endblock %}

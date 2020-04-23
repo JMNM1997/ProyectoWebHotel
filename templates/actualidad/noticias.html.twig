@@ -32,19 +32,20 @@
                             <div class="blog_item_img">             
                                 <img class="card-img rounded-0" src="{{ asset('imagenes/' ~ noticias.imagen) }}" alt="">
                                 <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
+                                    <h3>{{ noticias.fecha|date("d") }}</h3>
+                                    <p>{{ noticias.fecha|date("F") }}</p>
                                 </a>
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="single-blog.html">
+                                <a class="d-inline-block" href="#">
                                     <h2>{{ noticias.titular }}</h2>
                                 </a>
                                 <p>{{ noticias.descripcion }}</p>
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="fa fa-user"></i> {{ noticias.categoriaIdcategoria }}</a></li>
                                     <li><a href="#"><i class="fa fa-comments"></i> Comentarios</a></li>
+                                    <li><a href="#"><i class="fa fa-calendar-alt"></i> {{ noticias.fecha|date('Y-m-d') }}</a></li>
                                 </ul>
                             </div>
                         </article>
@@ -59,7 +60,7 @@
                             <form action="#">
                                 <div class="form-group">
                                     <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='Buscador palabra clave'
+                                        <input type="text" name="buscar" class="form-control" placeholder='Buscador palabra clave'
                                             onfocus="this.placeholder = ''"
                                             onblur="this.placeholder = 'Buscar'">
                                         <div class="input-group-append">
@@ -94,7 +95,7 @@
                                     <a href="single-blog.html">
                                         <h3>{{ ultimasNoticias.titular }}</h3>
                                     </a>
-                                    <p>01 Hours ago</p>
+                                    <p>{{ ultimasNoticias.fecha|date('Y-m-d') }}</p>
                                 </div>
                             </div>
                             {% endfor %}

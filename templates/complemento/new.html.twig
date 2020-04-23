@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Complemento{% endblock %}
+
+{% block body %}
+    <h1>Crear un nuevo complemento</h1>
+
+    {{ include('complemento/_form.html.twig') }}
+
+    <a href="{{ path('complemento_index') }}">Volver atrás</a>
+{% endblock %}

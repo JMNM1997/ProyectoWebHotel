@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Complemento;
 use App\Entity\Habitacion;
 use App\Entity\Tipo;
 use Symfony\Component\Form\AbstractType;
@@ -32,7 +33,7 @@ class HabitacionType extends AbstractType
                     'mimeTypesMessage' => 'Solo se permiten imagenes'
                 ])]
             ])
-            ->add('extras')
+            ->add('complementoIdcomplemento')
             ->add('precio');
     }
 
