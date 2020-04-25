@@ -12,7 +12,10 @@
 
         var planta= $("#planta").val();
         var precio= $("#precio").val();
-        var complemento= $("#nombre").val();
+        var complemento= [];
+        $.each($("input[name='nombre']:checked"), function(){
+                complemento.push($(this).val());
+            });                 
 
         $.ajax({
         url:'{{ (path('habitacionFiltro')) }}',
@@ -224,9 +227,9 @@
                                                         <div class="boking-tittle">
                                                             <span>Complementos:</span>
                                                         </div>
-                                                    {% for nombre in complemento %}
+                                                    {% for nombre in complementos %}
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" id="nombre" name="nombre[]" value= "{{ nombre.nombre }}">
+                                                                <input type="checkbox" id="nombre" name="nombre" value= "{{ nombre.nombre }}">
                                                                 <label style="color: #dca73a;" for="complemento">  {{ nombre.nombre }} </label>
                                                             </div>
                                                             

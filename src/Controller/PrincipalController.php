@@ -13,6 +13,7 @@ use App\Repository\HabitacionRepository;
 use Knp\Component\Pager\PaginatorInterface as PaginatorInterface;
 use App\Controller\DateTime;
 use App\Entity\Complemento;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PrincipalController extends AbstractController
 {
@@ -20,55 +21,17 @@ class PrincipalController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicio(PaginatorInterface $paginator, Request $request, ReservaRepository $reservaRepository, HabitacionRepository $habitacionRepository): Response
+    public function inicio(SessionInterface $session, PaginatorInterface $paginator, Request $request, ReservaRepository $reservaRepository, HabitacionRepository $habitacionRepository): Response
     {
+        //lo primero es setear a null la sesión para poder aplicar unos filtros nuevos desde 0.
+        $session->set('habitacionesListas', null);
         $em = $this->getDoctrine()->getManager();
-        $habitaciones = $em->getRepository(Habitacion::class)->findAll();
         //complementos que se van a cargar en el checkbox
         $complementos = $em->getRepository(Complemento::class)->findAll();
 
-
-
-        if (isset($_GET['planta']) && (isset($_GET['nombre']) && (isset($_GET['precio'])))) {
-            $planta = $_GET['planta'];
-            //string que envias al metodo de filtro
-            $complemento = $_GET['nombre'];
-            $precio = $_GET['precio'];
-
-            $habitacionesDisponibles = $habitacionRepository->getHabitacionesFiltros($planta, $complemento, $precio, true);
-            $listado = $paginator->paginate(
-                $habitacionesDisponibles, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
-            );
-
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complementos]);
-        }
-
-
-
-
-
-
-
-
-        if (isset($_GET['planta']) && (isset($_GET['nombre']))) {
-            $planta = $_GET['planta'];
-            //string que envias al metodo de filtro
-            $complemento = $_GET['nombre'];
-            //$precio = $_GET['precio'];
-
-            $habitacionesDisponibles = $habitacionRepository->getHabitacionesFiltrosSinprecio($complemento, $planta, true);
-            $listado = $paginator->paginate(
-                $habitacionesDisponibles, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
-            );
-
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complementos]);
-        }
         // filtrado por fechas, primer paso de búsqueda
         if (isset($_GET['fechaEntrada']) && (isset($_GET['fechaSalida']))) {
+
 
             //Vamos a pasar los valores a tipo fecha para poder mandarselos luego al método.
             $fechaEntrada = new \DateTime($_GET['fechaEntrada']);
@@ -86,62 +49,16 @@ class PrincipalController extends AbstractController
                 4 /*limit per page*/
             );
 
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complemento]);
-        }
 
+            //habitaciones lsitas para ser pasadas por sesión, por si el usuario quiere aplicarles un filtro
+            $habitacionesListas = $session->get('habitacionesListas');
+            /* si el carrito no existe se crea como un array vacío*/
+            if (is_null($habitacionesListas)) {
+                $habitacionesListas = array();
+                $session->set('habitacionesListas', $habitacionesDisponibles);
+            }
 
-        //precio máximo a pagar por el usuario
-
-        if ((isset($_GET['precio']))) {
-
-
-            $precio = $_GET['precio'];
-            $habitacionesFiltroprecio = $habitacionRepository->getHabitacionesFiltroprecio($precio);
-
-            $listado = $paginator->paginate(
-                $habitacionesFiltroprecio, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
-            );
-
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complemento]);
-        }
-
-
-
-
-        //precio y planta
-
-        if ((isset($_GET['precio']) && (isset($_GET['planta'])))) {
-
-
-            $precio = $_GET['precio'];
-            $habitacionesFiltroprecio = $habitacionRepository->getHabitacionesFiltroprecio($precio);
-
-            $listado = $paginator->paginate(
-                $habitacionesFiltroprecio, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
-            );
-
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complemento]);
-        }
-
-        //planta en la que se encuentra la habitación
-
-        if ((isset($_GET['planta']))) {
-
-
-            $planta = $_GET['planta'];
-            $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltroplanta($planta);
-
-            $listado = $paginator->paginate(
-                $habitacionesFiltroplanta, /* query NOT result */
-                $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
-            );
-
-            return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complemento]);
+            return $this->render('principal/index.html.twig', ["listado" => $listado, "complementos" => $complementos]);
         }
 
         $emptyArray = [];
@@ -153,7 +70,7 @@ class PrincipalController extends AbstractController
         );
 
 
-        return $this->render('principal/index.html.twig', ["listado" => $listado, "complemento" => $complementos]);
+        return $this->render('principal/index.html.twig', ["listado" => $listado, "complementos" => $complementos]);
     }
 
     /**
@@ -185,18 +102,32 @@ class PrincipalController extends AbstractController
      * @Route("/habitacionFiltro", name="habitacionFiltro", methods={"POST"})
      * 
      */
-    public function habitacionFiltro(PaginatorInterface $paginator, Request $request, HabitacionRepository $habitacionRepository): Response
+    public function habitacionFiltro(SessionInterface $session, PaginatorInterface $paginator, Request $request, HabitacionRepository $habitacionRepository): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $complementos = $em->getRepository(Complemento::class)->findAll();
+
+        $habitacionesListas = $session->get('habitacionesListas');
+
         $planta = $_POST['planta'];
         $complemento = $_POST['complemento'];
         $precio = $_POST['precio'];
 
         $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltros($planta, $complemento, $precio, true);
-        $em = $this->getDoctrine()->getManager();
-        $complementos = $em->getRepository(Complemento::class)->findAll();
+        $resultado = array();
+        //ahora tenemos array1 (habitaciones filtradas segun fecha) y array2
+
+        foreach ($habitacionesListas as $hFecha) {
+            foreach ($habitacionesFiltroplanta as $hFiltro => $e) {
+                if (($hFecha->getCodhabitacion()) == ($e->getCodhabitacion())) {
+                    $resultado[] = $hFecha;
+                }
+            }
+        }
+
 
         $listado = $paginator->paginate(
-            $habitacionesFiltroplanta, /* query NOT result */
+            $resultado, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
             4 /*limit per page*/
         );
