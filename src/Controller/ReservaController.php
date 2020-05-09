@@ -17,6 +17,7 @@ use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 use Spipu\Html2Pdf\Html2Pdf;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class ReservaController extends AbstractController
@@ -49,8 +50,7 @@ class ReservaController extends AbstractController
     }
     /**
      * @Route("/reserva/crearReserva", name="crear_reserva")
-     *
-     * 
+     * @IsGranted("ROLE_USER")
      * @return void
      */
     public function crearReserva(\Swift_Mailer $mailer)
@@ -73,7 +73,24 @@ class ReservaController extends AbstractController
         $fechaEntrada = $_POST['fechaEntrada'];
         $fechaSalida = $_POST['fechaSalida'];
         $fechaEntradaDATE = new \DateTime($fechaEntrada);
+
+        //¿Es fecha Entrada menos que el dia de hoy?
+        $fechaActual = new \DateTime('now');
+
+        if ($fechaActual > $fechaEntradaDATE) {
+            $fechaEntradaDATE = $fechaActual;
+        }
+
         $fechaSalidaDATE = new \DateTime($fechaSalida);
+
+        //¿Es fecha Salida menos que el dia de hoy? La pondremos 1 día mayor minimo ya que no tiene sentido que sea el mismo dia que la reserva.
+        $fechaActualMas1 = new \DateTime('now');
+        $fechaActualMas1->modify('+1 day');
+
+        if ($fechaActualMas1 > $fechaSalidaDATE) {
+            $fechaSalidaDATE = $fechaActualMas1;
+        }
+
 
         //asignar fechas al objeto reserva
 
@@ -107,11 +124,7 @@ class ReservaController extends AbstractController
         $mailer->send($message);
 
 
-
-
-
-
-        return $this->redirectToRoute("inicio");
+        return $this->redirectToRoute("reserva_index");
     }
 
     /**

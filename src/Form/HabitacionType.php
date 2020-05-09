@@ -28,6 +28,7 @@ class HabitacionType extends AbstractType
                 'mapped' => true,
                 'required' => true,
 
+
                 'constraints' => [new File([
                     'mimeTypes' => ['image/png', 'image/jpeg', 'image/gif'],
                     'mimeTypesMessage' => 'Solo se permiten imagenes'
@@ -42,5 +43,6 @@ class HabitacionType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Habitacion::class,
         ]);
+        $resolver->setDefaults(['required' => false,]);
     }
 }

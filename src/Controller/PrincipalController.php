@@ -32,13 +32,27 @@ class PrincipalController extends AbstractController
         // filtrado por fechas, primer paso de búsqueda
         if (isset($_GET['fechaEntrada']) && (isset($_GET['fechaSalida']))) {
 
-
             //Vamos a pasar los valores a tipo fecha para poder mandarselos luego al método.
             $fechaEntrada = new \DateTime($_GET['fechaEntrada']);
+            //¿Es fecha Entrada menos que el dia de hoy?
+            $fechaActual = new \DateTime('now');
+
+            if ($fechaActual > $fechaEntrada) {
+                $fechaEntrada = $fechaActual;
+            }
+
             $fechaSalida = new \DateTime($_GET['fechaSalida']);
 
+            //¿Es fecha Salida menos que el dia de hoy? La pondremos 1 día mayor minimo ya que no tiene sentido que sea el mismo dia que la reserva.
+            $fechaActualMas1 = new \DateTime('now');
+            $fechaActualMas1->modify('+1 day');
+
+            if ($fechaActualMas1 > $fechaSalida) {
+                $fechaSalida = $fechaActualMas1;
+            }
+
             //fecha entrada y salida. 
-            //Devuelve la lista de habitaciones disponibles a mostrar, filtrando las que no pueden mostrarse por estar ocupadas
+            //Devuelve la lista de habitaciones disponibles a mostrar, filtrando las que no pueden mostrarse por estar ocupadas.
             //en esas determinadas fechas.
 
             $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles($fechaEntrada, $fechaSalida);
@@ -107,13 +121,31 @@ class PrincipalController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $complementos = $em->getRepository(Complemento::class)->findAll();
 
+        //comprobamos las habitaciones que nos hemos traido de filtrar por fecha.
+        //si no hay ninguna dará error pues hay que hacer una primera criba para ya filtrar las siguientes.
+
         $habitacionesListas = $session->get('habitacionesListas');
+        if (is_null($habitacionesListas)) {
 
-        $planta = $_POST['planta'];
-        $complemento = $_POST['complemento'];
-        $precio = $_POST['precio'];
+            return $this->render('principal/filtroerror.html.twig');
+        }
 
-        $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltros($planta, $complemento, $precio, true);
+        //ahora vamos a ir mirando variables para ver que resultado se devuelve (el parametro complemento es opcional)
+        if (isset($_POST['planta']) && (isset($_POST['complemento']) && (isset($_POST['precio'])))) {
+
+            $planta = $_POST['planta'];
+            $complemento = $_POST['complemento'];
+            $precio = $_POST['precio'];
+
+            $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltros($planta, $complemento, $precio, true);
+        }
+        if (isset($_POST['planta']) && (isset($_POST['precio']))) {
+
+            $planta = $_POST['planta'];
+            $precio = $_POST['precio'];
+
+            $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltrosSincomplemento($planta, $precio, true);
+        }
         $resultado = array();
         //ahora tenemos array1 (habitaciones filtradas segun fecha) y array2
 

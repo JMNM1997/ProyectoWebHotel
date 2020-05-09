@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Noticia;
 use App\Form\NoticiaType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,6 +38,8 @@ class NoticiaController extends AbstractController
         $form = $this->createForm(NoticiaType::class, $noticium);
         $form->handleRequest($request);
 
+
+
         if ($form->isSubmitted() && $form->isValid()) {
             $imagen = $form['imagen']->getData();
             if ($imagen) {
@@ -47,7 +50,14 @@ class NoticiaController extends AbstractController
                 );
                 $noticium->setImagen($nombrearchivo);
             }
-
+            $fecha = $form['fecha']->getData();
+            //si la fecha es menor a la actual devolveremos al usuario la fecha actual
+            $fechaActual = new DateTime('now');
+            if ($fechaActual > $fecha) {
+                $noticium->setFecha($fechaActual);
+            } else {
+                $noticium->setFecha($fecha);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($noticium);
@@ -90,6 +100,9 @@ class NoticiaController extends AbstractController
                 );
                 $noticium->setImagen($nombrearchivo);
             }
+            $fecha = $form['fecha']->getData();
+            $noticium->setFecha($fecha);
+
 
             $this->getDoctrine()->getManager()->flush();
 

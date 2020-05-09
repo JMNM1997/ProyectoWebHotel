@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class NoticiaType extends AbstractType
 {
@@ -21,11 +23,17 @@ class NoticiaType extends AbstractType
             ->add('titular')
             ->add('descripcion')
 
-            ->add('fecha', DateType::class, array(
-                'required' => false,
+            ->add('fecha', DateType::class, [
+                'label' => 'Fecha de la noticia',
+                'mapped' => false,
                 'widget' => 'single_text',
-                'empty_data'  => '',
-            ))
+                'input' => 'datetime',
+                'html5' => 'false',
+                'constraints' => [
+                    new NotBlank(['message' => 'Escoge una fecha']),
+                    new NotNull(['message' => 'No puedes dejar este campo sin rellenar'])
+                ],
+            ])
 
             ->add('imagen', FileType::class, [
                 'label' => "Fichero de habitación",
@@ -50,5 +58,6 @@ class NoticiaType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Noticia::class,
         ]);
+        $resolver->setDefaults(['required' => false,]);
     }
 }

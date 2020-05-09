@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Habitacion
@@ -27,6 +28,7 @@ class Habitacion
      * @var string
      *
      * @ORM\Column(name="planta", type="string", length=45, nullable=false)
+     * @Assert\NotNull()
      */
     private $planta;
 
@@ -34,6 +36,7 @@ class Habitacion
      * @var string
      *
      * @ORM\Column(name="imagen", type="string", length=45, nullable=false)
+     * @Assert\NotBlank
      */
     private $imagen;
 
@@ -41,6 +44,7 @@ class Habitacion
      * @var float
      *
      * @ORM\Column(name="precio", type="float", precision=10, scale=0, nullable=false)
+     * @Assert\NotNull()
      */
     private $precio;
 
@@ -51,6 +55,7 @@ class Habitacion
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipo_idTipo", referencedColumnName="idTipo")
      * })
+     * @Assert\NotNull()
      */
     private $tipoIdtipo;
 
@@ -155,5 +160,4 @@ class Habitacion
 
         return $this;
     }
-
 }

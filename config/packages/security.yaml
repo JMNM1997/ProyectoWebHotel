@@ -34,6 +34,18 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/habitacion_detalle, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        # - { path: ^/habitacion, roles: ROLE_ADMIN }
+        # para poder filtrar
+        - { path: ^/habitacionFiltro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # acceso a mantenimientos
+        - { path: ^/habitacion, roles: ROLE_ADMIN }
+        - { path: ^/cliente, roles: ROLE_ADMIN }
+        - { path: ^/tipo, roles: ROLE_ADMIN }
+        - { path: ^/complemento, roles: ROLE_ADMIN }
+        - { path: ^/noticia, roles: ROLE_ADMIN }
+        - { path: ^/categoria, roles: ROLE_ADMIN }
+
+        # hacer una reserva
+        # - { path: ^/crear_reserva, roles: ROLE_ADMIN }
+        
 
         # - { path: ^/profile, roles: ROLE_USER }

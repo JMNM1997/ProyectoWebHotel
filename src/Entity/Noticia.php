@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Noticia
@@ -25,6 +26,7 @@ class Noticia
      * @var string
      *
      * @ORM\Column(name="titular", type="string", length=95, nullable=false)
+     * @Assert\NotNull()
      */
     private $titular;
 
@@ -32,6 +34,7 @@ class Noticia
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=255, nullable=false)
+     * @Assert\NotNull()
      */
     private $descripcion;
 
@@ -39,6 +42,7 @@ class Noticia
      * @var string
      *
      * @ORM\Column(name="imagen", type="string", length=255, nullable=false)
+     * @Assert\NotBlank
      */
     private $imagen;
 
@@ -46,7 +50,9 @@ class Noticia
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime", nullable=false)
+     * @Assert\LessThan("today")
      */
+
     private $fecha;
 
     /**
@@ -56,6 +62,7 @@ class Noticia
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Categoria_idCategoria", referencedColumnName="idCategoria")
      * })
+     * @Assert\NotNull()
      */
     private $categoriaIdcategoria;
 

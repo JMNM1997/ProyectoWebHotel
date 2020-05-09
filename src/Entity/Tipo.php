@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tipo
@@ -25,6 +26,7 @@ class Tipo
      * @var string
      *
      * @ORM\Column(name="Nombre", type="string", length=85, nullable=false)
+     * @Assert\NotNull()
      */
     private $nombre;
 

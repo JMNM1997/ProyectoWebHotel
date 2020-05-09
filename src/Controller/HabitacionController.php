@@ -76,7 +76,9 @@ class HabitacionController extends AbstractController
      */
     public function edit(Request $request, Habitacion $habitacion): Response
     {
+
         $form = $this->createForm(HabitacionType::class, $habitacion);
+        //habra que poner una imagen por defecto
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

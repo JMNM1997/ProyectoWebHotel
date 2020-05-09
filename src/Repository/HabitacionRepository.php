@@ -147,4 +147,35 @@ class HabitacionRepository extends ServiceEntityRepository
 
         return $consulta->execute();
     }
+
+    public function getHabitacionesFiltrosSincomplemento(string $planta, string $precio, bool $and = true)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder('h')
+            ->select('h')->from('App\Entity\Habitacion', 'h');
+
+        if ($planta) {
+            //$qb->innerJoin('p.colorflorIdcolorflor', 'c');
+
+            if ($and) {
+                $qb->where('h.precio <= :precio')
+                    ->andWhere('h.planta = :planta');
+            } else {
+                $qb->Where('h.precio <= :precio')
+                    ->orWhere('h.planta = :planta');
+            }
+        } else {
+            $qb->where('h.precio <= :precio');
+        }
+
+        if (!$planta) {
+            $qb->setParameter('precio', $precio);
+        } else {
+            $qb->setParameters(['precio' => $precio, 'planta' => $planta]);
+        }
+
+        $consulta = $qb->getQuery();
+
+        return $consulta->execute();
+    }
 }

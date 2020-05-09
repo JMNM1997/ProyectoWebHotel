@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Categoria
@@ -25,6 +26,7 @@ class Categoria
      * @var string|null
      *
      * @ORM\Column(name="nombre", type="string", length=45, nullable=true)
+     * @Assert\NotNull()
      */
     private $nombre;
 
