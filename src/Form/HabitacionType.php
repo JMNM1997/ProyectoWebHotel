@@ -34,7 +34,19 @@ class HabitacionType extends AbstractType
                     'mimeTypesMessage' => 'Solo se permiten imagenes'
                 ])]
             ])
-            ->add('complementoIdcomplemento')
+            //->add('complementoIdcomplemento')
+            ->add('complementoIdcomplemento', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Complemento::class,
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'nombre',
+
+                // used to render a select box, check boxes or radios
+                'multiple' => true,
+                'expanded' => true,
+            ])
+
             ->add('precio');
     }
 

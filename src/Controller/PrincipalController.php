@@ -130,8 +130,17 @@ class PrincipalController extends AbstractController
             return $this->render('principal/filtroerror.html.twig');
         }
 
+        //si no seleccionas ningún complemento quiere decir que ignoras ese filtro y te da igual el número de complementos.
+        //cuando el usuario no selecciona ningún complemento
+        if (isset($_POST['planta']) && (isset($_POST['precio']) && (!(isset($_POST['complemento']))))) {
+
+            $planta = $_POST['planta'];
+            $precio = $_POST['precio'];
+
+            $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltrosSincomplemento($planta, $precio, true);
+        }
         //ahora vamos a ir mirando variables para ver que resultado se devuelve (el parametro complemento es opcional)
-        if (isset($_POST['planta']) && (isset($_POST['complemento']) && (isset($_POST['precio'])))) {
+        if (isset($_POST['planta']) && (isset($_POST['precio']) && (isset($_POST['complemento'])))) {
 
             $planta = $_POST['planta'];
             $complemento = $_POST['complemento'];
@@ -139,15 +148,12 @@ class PrincipalController extends AbstractController
 
             $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltros($planta, $complemento, $precio, true);
         }
-        if (isset($_POST['planta']) && (isset($_POST['precio']))) {
 
-            $planta = $_POST['planta'];
-            $precio = $_POST['precio'];
 
-            $habitacionesFiltroplanta = $habitacionRepository->getHabitacionesFiltrosSincomplemento($planta, $precio, true);
-        }
         $resultado = array();
         //ahora tenemos array1 (habitaciones filtradas segun fecha) y array2
+        //trozo de codigo que nos saca habitaciones que coincidan entre las filtradas por fecha y las filtradas por otros valores
+        //para que una habitación sea mostrada al usuario tiene que estar dentro de la fecha que solicito
 
         foreach ($habitacionesListas as $hFecha) {
             foreach ($habitacionesFiltroplanta as $hFiltro => $e) {
