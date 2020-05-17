@@ -1,0 +1,32 @@
+
+{% block title %}Contacto realizado con éxito{% endblock %}
+
+{% block body %}
+
+        <!-- slider Area Start-->
+        <div class="slider-area"> 
+            <div class="single-slider hero-overly slider-height2 d-flex align-items-center" data-background="{{ asset('img/hero/roomspage_hero.jpg') }}" >
+                <div class="container">
+                    <div class="row ">
+                        <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
+                            <div class="hero-caption">                        
+                                <h2>Gracias por usar nuestra web</h2>
+
+                                <h5>Datos del contacto:</h5>
+                                    <ol type=”A”>
+                                        <li>Nombre del usuario: {{nombre}}</li>
+                                        <li>Asunto del contacto: {{asunto}} </li>
+                                        <li>Mensaje:{{mensaje}} </li>
+                                        <li>Email: {{email}}</li>
+                                    </ol>
+                                 
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- slider Area End-->
+
+{% endblock %}

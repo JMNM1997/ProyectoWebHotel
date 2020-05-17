@@ -15,9 +15,9 @@ use App\Repository\ActualidadRepository;
 class ActualidadController extends AbstractController
 {
     /**
-     * @Route("/noticias/", name="actualidad", methods={"GET"})
+     * @Route("/actualidad/", name="actualidad", methods={"GET"})
      */
-    public function noticias(PaginatorInterface $paginator, Request $request, ActualidadRepository $actualidadRepository): Response
+    public function actualidad(PaginatorInterface $paginator, Request $request, ActualidadRepository $actualidadRepository): Response
     {
         $noticias = $this->getDoctrine()
             ->getRepository(Noticia::class)

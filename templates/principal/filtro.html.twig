@@ -5,7 +5,7 @@
                         <!-- Single Room -->
                         <div class="single-room mb-50">
                             <div class="room-img">
-                               <a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}"><img src="{{ asset('imagenes/' ~ habitaciones.imagen) }}" alt=""></a>
+                               <a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}"><img src="{{ asset('imagenes/' ~ habitaciones.imagen) }}" alt="" style="width: 40vh; height: 30vh;"></a>
                             </div>
                             <div class="room-caption">
                                 <h3><a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}">{{ habitaciones.tipoIdtipo }}</a></h3>

@@ -227,7 +227,7 @@
                                                         </div>
                                                     {% for nombre in complementos %}
                                                             <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" id="nombre" name="nombre" value= "{{ nombre.nombre }}">
+                                                                <input type="checkbox" id="nombre" name="nombre" value= "{{ nombre.idcomplemento }}">
                                                                 <label style="color: #dca73a;" for="complemento">  {{ nombre.nombre }} </label>
                                                             </div>
                                                             
@@ -249,13 +249,13 @@
                         </div>
         <!-- Booking Room End-->
         <!-- test --> 
-                <div id="plantaDiv" class="container">
+                <div id="plantaDiv" class="container" style="position: relative;">
                     {% for habitaciones in listado %}
                     <div class="col-xl-4 col-lg-6 col-md-6">
                         <!-- Single Room -->
                         <div class="single-room mb-50">
                             <div class="room-img">
-                               <a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}"><img src="{{ asset('imagenes/' ~ habitaciones.imagen) }}" alt=""></a>
+                               <a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}"><img src="{{ asset('imagenes/' ~ habitaciones.imagen) }}" alt="" style="width: 40vh; height: 30vh;" ></a>
                             </div>
                             <div class="room-caption">
                                 <h3><a href="{{ path('habitacion_detalle',{codhabitacion: habitaciones.codhabitacion}) }}">{{ habitaciones.tipoIdtipo }}</a></h3>
@@ -267,12 +267,15 @@
                     </div>
                     {% endfor %}
                 
+                
+                <!-- Paginación -->
+                    <div class="row justify-content-center" >
+                                <div id= "navi" class="navigation" style="position: absolute !important; bottom: 0 !important;">
+                                    {{ knp_pagination_render(listado) }}
+                                </div>
+                    </div>
                 </div>
-                <div class="row justify-content-center">
-                            <div class="navigation">
-                                {{ knp_pagination_render(listado) }}
-                            </div>
-                </div>
+
             </div>
 
         </section>
@@ -303,9 +306,6 @@
         </div>
         <!-- Gallery img End-->
     </main>
-
-
-
 
 {% endblock %}
 

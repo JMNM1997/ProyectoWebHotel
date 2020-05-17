@@ -43,7 +43,8 @@ security:
         - { path: ^/complemento, roles: ROLE_ADMIN }
         - { path: ^/noticia, roles: ROLE_ADMIN }
         - { path: ^/categoria, roles: ROLE_ADMIN }
-
+        # a actualidad puede acceder el usuario normal
+        - { path: ^/actualidad, roles: ROLE_USER }
         # hacer una reserva
         # - { path: ^/crear_reserva, roles: ROLE_ADMIN }
         

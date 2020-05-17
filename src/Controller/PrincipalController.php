@@ -60,7 +60,7 @@ class PrincipalController extends AbstractController
             $listado = $paginator->paginate(
                 $habitacionesDisponibles, /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
-                4 /*limit per page*/
+                6 /*limit per page*/
             );
 
 
@@ -167,7 +167,7 @@ class PrincipalController extends AbstractController
         $listado = $paginator->paginate(
             $resultado, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            4 /*limit per page*/
+            6 /*limit per page*/
         );
 
         return $this->render('principal/filtro.html.twig', ["listado" => $listado, "complementos" => $complementos]);
