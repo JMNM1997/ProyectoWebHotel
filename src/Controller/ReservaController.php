@@ -55,7 +55,7 @@ class ReservaController extends AbstractController
      */
     public function crearReserva(\Swift_Mailer $mailer)
     {
-        $email = 'josemiguelnavarretemartinez@gmail.com';
+
         //primero el usuario en la bd
         $reserva = new Reserva();
 
@@ -63,6 +63,7 @@ class ReservaController extends AbstractController
 
 
         $userid = $this->getDoctrine()->getRepository(Cliente::class)->findOneBy(['user' => $id]);
+        $email = $userid->getUser()->getEmail();
         $reserva->setClienteCodcliente($userid);
         $habitacionCodhabitacion = $_POST['habitacionCodhabitacion'];
         $habid = $this->getDoctrine()->getRepository(Habitacion::class)->findOneBy(['codhabitacion' => $habitacionCodhabitacion]);

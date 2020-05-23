@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="alert alert-danger">
+No se pudo registrar usuario, hay algún campo que no ha sido rellenado. <br> <br> <a class="btn btn-danger" href="{{ path('app_register') }}">Volver a intentarlo</a>
+</div>
+{% endblock %}

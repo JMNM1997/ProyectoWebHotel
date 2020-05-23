@@ -30,7 +30,7 @@
                                     <ul id="navigation">                                                                                                                                     
                                         <li><a href="{{ path('inicio') }}">Principal</a></li>
 
-                                        {% if app.user %}
+                                        {% if is_granted('ROLE_ADMIN') %}
                                             <li><a href="#">Gestión</a>
                                                 <ul class="submenu">
                                                     <li><a href="{{ path("cliente_index") }}">Clientes</a></li>

@@ -81,17 +81,34 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return void
      */
-    public function crearCliente(UserPasswordEncoderInterface $encoder)
+    public function crearCliente(UserPasswordEncoderInterface $encoder, AuthenticationUtils $authenticationUtils)
     {
+
         //primero el usuario en la bd
         $usuario = new User();
 
         $email = $_POST['email'];
         $password = $_POST['password'];
 
+        //datos cliente
+
+        $dni = $_POST['dni'];
+        $nombre = $_POST['nombre'];
+        $apellidos = $_POST['apellidos'];
+        $telefono = $_POST['telefono'];
+
+
+        //vamos a comprobar campos nulos para no crear un usuario vacio
+        if (($email == null) || ($password == null) || ($dni == null) || ($nombre == null) || ($apellidos == null) || ($telefono == null)) {
+            //seria conveniente poner un error antes
+            return $this->redirectToRoute("error_registro");
+        }
+
         $encoded = $encoder->encodePassword($usuario, $password);
         $usuario->setPassword($encoded);
         $usuario->setEmail($email);
+
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($usuario);
         $em->flush();
@@ -100,10 +117,6 @@ class SecurityController extends AbstractController
         //y una vez rellenado completamos los campos de cliente
         $cliente = new Cliente();
 
-        $dni = $_POST['dni'];
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $telefono = $_POST['telefono'];
 
         $cliente->setDni($dni);
         $cliente->setNombre($nombre);
@@ -111,11 +124,26 @@ class SecurityController extends AbstractController
         $cliente->setTelefono($telefono);
         $cliente->setUser($usuario);
 
+        if ($nombre == null) {
+            return $this->redirectToRoute("inicio");
+        }
         $em = $this->getDoctrine()->getManager();
         $em->persist($cliente);
         $em->flush();
 
 
         return $this->redirectToRoute("inicio");
+    }
+
+    /**
+     * @Route("/usuario/errorRegistro", name="error_registro")
+     *
+     * @param UserPasswordEncoderInterface $encoder
+     * @return void
+     */
+    public function errorRegistro()
+    {
+        //primero lo haremos sin pasarle las variables de error, luego las implementaremos
+        return $this->render('security/error_registro.html.twig');
     }
 }

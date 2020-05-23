@@ -6,32 +6,28 @@
 
 
 <script>
- $(document).ready(function(){
+    $(document).ready(function(){
+        $('#botonFiltro').click(function (){
 
-    $('#botonFiltro').click(function (){
-
-        var planta= $("#planta").val();
-        var precio= $("#precio").val();
-        var complemento= [];
-        $.each($("input[name='nombre']:checked"), function(){
-                complemento.push($(this).val());
-            });                 
-
-        $.ajax({
-        url:'{{ (path('habitacionFiltro')) }}',
-        method: "POST",
-        data: {
-        planta: planta, precio: precio, complemento: complemento
-        },
-        success: function (data) {
-
-            console.log(data)
-            $('#plantaDiv').html(data);
-        }
-    });
-
-    });
-    
+            var planta= $("#planta").val();
+            var precio= $("#precio").val();
+            var complemento= [];
+            
+            $.each($("input[name='nombre']:checked"), function(){
+                    complemento.push($(this).val());
+                });                 
+            $.ajax({
+                url:'{{ (path('habitacionFiltro')) }}',
+                method: "POST",
+                data: {
+                planta: planta, precio: precio, complemento: complemento
+                },
+                success: function (data) {
+                   //console.log(data)
+                    $('#plantaDiv').html(data);
+                }
+            });
+        });
 
     });
 </script>
