@@ -90,11 +90,15 @@ class PrincipalController extends AbstractController
     /**
      * @Route("/habitacion_detalle/{codhabitacion}", name="habitacion_detalle", methods={"GET"})
      * Parámetro id para ver por qué habitación se filtra
+     * Fechas que ha seleccionado el usuario, para colocarlas en el value
      */
     public function habitacion_detalle($codhabitacion): Response
     {
 
         $habitacion = $this->getDoctrine()->getRepository(Habitacion::class)->find((int) $codhabitacion);
+        //fechas
+        //$fechaEntrada = $_GET['fechaEntrada'];
+        //$fechaSalida = $_GET['fechaSalida'];
 
         $habitacion = [
             "id" => $habitacion->getCodhabitacion(),

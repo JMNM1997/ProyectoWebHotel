@@ -9,16 +9,20 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-md-11 offset-xl-1 offset-lg-1 offset-md-1">
-                            <div class="hero-caption">                        
+                            <div class="hero-caption">
+                                <div class="logo">
+                                    <a href="#"><img src="{{ asset('img/logo/logo1.png') }}" alt=""></a>
+                                </div> 
+
                                 <h2>Gracias por usar nuestra web</h2>
 
                                 <h5>Datos del contacto:</h5>
-                                    <ol type=”A”>
-                                        <li>Nombre del usuario: {{nombre}}</li>
-                                        <li>Asunto del contacto: {{asunto}} </li>
-                                        <li>Mensaje:{{mensaje}} </li>
-                                        <li>Email: {{email}}</li>
-                                    </ol>
+                                        <p>Asunto del contacto: {{asunto}} </p>
+                                        <p>Mensaje:{{mensaje}} </p>
+
+                                <h5>Datos del emisor de la incidencia:</h5>
+                                        <p>Nombre del usuario: {{nombre}}</p>
+                                        <p>Email: {{email}}</p>
                                  
 
                             </div>

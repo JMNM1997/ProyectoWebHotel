@@ -36,6 +36,8 @@ security:
         - { path: ^/habitacion_detalle, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # para poder filtrar
         - { path: ^/habitacionFiltro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # ver noticia completa
+        - { path: ^/noticia_detalle, roles: ROLE_USER }
         # acceso a mantenimientos
         - { path: ^/habitacion, roles: ROLE_ADMIN }
         - { path: ^/cliente, roles: ROLE_ADMIN }
@@ -45,6 +47,7 @@ security:
         - { path: ^/categoria, roles: ROLE_ADMIN }
         # a actualidad puede acceder el usuario normal
         - { path: ^/actualidad, roles: ROLE_USER }
+
         # hacer una reserva
         # - { path: ^/crear_reserva, roles: ROLE_ADMIN }
         

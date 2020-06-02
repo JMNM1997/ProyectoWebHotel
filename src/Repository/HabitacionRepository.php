@@ -15,6 +15,8 @@ class HabitacionRepository extends ServiceEntityRepository
         parent::__construct($registry, Reserva::class);
     }
 
+    //consulta que devuelve habitaciones según sus plantas
+
     public function getHabitacionesFiltroplanta($planta)
     {
 
@@ -26,6 +28,8 @@ class HabitacionRepository extends ServiceEntityRepository
         )->setParameter('planta', $planta);
         return $consulta->getResult();
     }
+
+    //consulta que devuelve habitaciones según sus precios
 
     public function getHabitacionesFiltroprecio($precio)
     {
@@ -39,6 +43,8 @@ class HabitacionRepository extends ServiceEntityRepository
         return $consulta->getResult();
     }
 
+
+    // cpnsulta que devuelve habitaciones según complementos y planta
 
     public function getHabitacionesFiltrosSinprecio(array $complemento = null, string $planta, bool $and = true)
     {
@@ -72,138 +78,8 @@ class HabitacionRepository extends ServiceEntityRepository
         return $consulta->execute();
     }
 
-    public function getHabitacionesFiltros4(string $planta, array $complemento = null, string $precio, bool $and = true)
-    {
-        $em = $this->getEntityManager();
 
-        $qb = $em->createQueryBuilder('h')
-            ->select('h')->from('App\Entity\Habitacion', 'h');
-
-        if ($complemento) {
-            $qb->innerJoin('h.complementoIdcomplemento', 'co');
-            if ($and) {
-                $qb->where('h.planta = :planta')
-                    ->andWhere('co.nombre IN (:nombre)');
-            } else {
-                $qb->where('h.planta = :planta')
-                    ->orWhere('co.nombre IN (:nombre)');
-            }
-        } else {
-            $qb->where('h.planta = :planta');
-        }
-
-        if (!$complemento) {
-            $qb->setParameter('planta', $planta);
-        }
-        if (!$complemento && $planta && $precio) {
-            $qb->setParameters(['planta' => $planta, 'precio' => $precio]);
-        }
-        if ($complemento && $planta && !$precio) {
-            $qb->setParameters(['planta' => $planta, 'nombre' => $complemento]);
-        }
-
-        if ($precio && !$complemento) {
-
-            if ($and) {
-                $qb
-                    ->where('h.planta = :planta')
-                    ->andWhere('h.precio <= :precio');
-            }
-        }
-
-        if ($precio && $complemento) {
-
-            if ($and) {
-                $qb
-                    ->where('h.planta = :planta')
-                    ->andWhere('h.precio <= :precio')
-                    ->andWhere('co.nombre IN (:nombre)');
-            } else {
-                $qb->innerJoin('h.complementoIdcomplemento', 'co')
-                    ->where('h.planta = :planta')
-                    ->orWhere('co.nombre IN (:nombre)')
-                    ->orWhere('h.precio <= :precio');
-            }
-        }
-
-        if (!$precio && !$complemento && $planta) {
-            $qb->where('h.planta = :planta');
-        }
-
-        if (!$precio && $complemento && $planta) {
-            $qb->where('h.planta = :planta')
-                ->andWhere('co.nombre IN (:nombre)');
-        }
-
-        if ($precio && !$complemento && $planta) {
-            $qb->setParameters(['planta' => $planta, 'precio' => $precio]);
-        }
-
-        if ($planta && $complemento && $precio) {
-            $qb->setParameters(['planta' => $planta, 'nombre' => $complemento, 'precio' => $precio]);
-        }
-
-        $consulta = $qb->getQuery();
-
-        return $consulta->execute();
-    }
-
-
-    //consulta antonio
-    public function getHabitacionesFiltros2(string $planta, array $complemento = null, string $precio, bool $and = true)
-    {
-        $em = $this->getEntityManager();
-        $sql = "SELECT h FROM App\Entity\Habitacion h INNER JOIN h.complementoIdcomplemento co WHERE h.planta = :planta AND h.precio <= :precio";
-        if ($complemento) {
-
-            foreach ($complemento as $idcomplemento) {
-                $sql .= " and co.idcomplemento='" . $idcomplemento . "'";
-            }
-        }
-        $qb = $em->createQuery($sql);
-        $qb->setParameters(['planta' => $planta, 'precio' => $precio,]);
-        $datos = $qb->execute();
-        return $datos;
-    }
-
-    //consulta traducida
-    public function filter_rooms(string $R_floor, array $complement = null, string $price, bool $and = true)
-    {
-        $em = $this->getEntityManager();
-        $sql = "SELECT h FROM App\Entity\Room h INNER JOIN h.complementoIdcomplemento co WHERE h.R_floor = :R_floor AND h.price <= :price";
-        if ($complement) {
-            $sql .= " and (";
-            foreach ($complement as $namecomplement) {
-                $sql .= "co.name='" . $namecomplement . "' or ";
-            }
-            $sql .= " false=false )";
-        }
-        $qb = $em->createQuery($sql);
-        $qb->setParameters(['R_floor' => $R_floor, 'price' => $price,]);
-        $datos = $qb->execute();
-        return $datos;
-    }
-
-    //consulta  modificada c2 repetida
-    public function getHabitacionesFiltros3(string $planta, array $complemento = null, string $precio, bool $and = true)
-    {
-        $em = $this->getEntityManager(); //App\Entity\Habitacion h
-        $sql = "SELECT c, h FROM App\Entity\Complemento c INNER JOIN c.habitacionCodhabitacion co, App\Entity\Habitacion h INNER JOIN h.complementoIdcomplemento co
-        WHERE h.planta = :planta AND h.precio <= :precio";
-        if ($complemento) {
-            $sql .= " and (";
-            foreach ($complemento as $nombrecomplemeto) {
-                $sql .= "c.nombre='" . $nombrecomplemeto . "' or ";
-            }
-            $sql .= " false=false )";
-        }
-        $qb = $em->createQuery($sql);
-        $qb->setParameters(['planta' => $planta, 'precio' => $precio, 'nombre' => $complemento,]);
-        $datos = $qb->execute();
-        return $datos;
-    }
-
-    //consulta  modificada builder
+    //consulta  modificada / devuelve habitaciones filtros completos
     public function getHabitacionesFiltros(string $planta, array $complemento = null, string $precio, bool $and = true)
     {
         //vamos a contar cuantos complementos ha traido el usuario y restarle 1 para luego hacer el having
@@ -226,6 +102,8 @@ class HabitacionRepository extends ServiceEntityRepository
         $datos = $qb->execute();
         return $datos;
     }
+
+    //consulta que devuelve habitaciones teniendo en cuenta planta y precio
 
     public function getHabitacionesFiltrosSincomplemento(string $planta, string $precio, bool $and = true)
     {

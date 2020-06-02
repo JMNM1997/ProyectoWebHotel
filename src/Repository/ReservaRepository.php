@@ -15,6 +15,8 @@ class ReservaRepository extends ServiceEntityRepository
         parent::__construct($registry, Reserva::class);
     }
 
+    //Devolvemos las habitaciones de base de datos que no tienen una reserva asignada
+
     public function getHabitacionesSinReserva()
     {
 
@@ -29,6 +31,8 @@ class ReservaRepository extends ServiceEntityRepository
 
         return $consulta->getResult();
     }
+
+    //habitaciones que se encuentran entre una fecha y otra
 
     public function getHabitacionesDisponibles(\Datetime $fechaentrada, \Datetime $fechasalida)
     {
@@ -48,45 +52,3 @@ class ReservaRepository extends ServiceEntityRepository
         return $consulta->getResult();
     }
 }
-
-
-/*
-SELECT codHabitacion 
-FROM habitacion h
-WHERE
-    NOT EXISTS (
-        SELECT
-            codReserva
-        FROM reserva r
-        WHERE
-            Habitacion_codHabitacion = codHabitacion
-    )
-;
-*/
-
-/*
-
-        $em = $this->getEntityManager();
-        $consulta = $em->createQuery(
-            'select h from App\Entity\Habitacion h
-            where 
-            not exists (
-                select r from App\Entity\Reserva r
-                where r.habitacionCodhabitacion = :h.codhabitacion
-            )'
-        );
-    public function getHabitacionesDisponibles($fecha)
-    {
-
-        $em = $this->getEntityManager();
-        $consulta = $em->createQuery(
-
-            'select h from App\Entity\Habitacion h
-            join App\Entity\Reserva r on h.codHabitacion = r.Habitacion_codHabitacion where r.fecha_salida < :fecha'
-        )->setParameter(':fecha', $fecha);
-
-
-        return $consulta->getResult();
-    }
-
-*/

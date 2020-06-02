@@ -50,6 +50,7 @@ class NoticiaController extends AbstractController
                 );
                 $noticium->setImagen($nombrearchivo);
             }
+            //una noticia puede tener fecha posterior a hoy pero no anterior
             $fecha = $form['fecha']->getData();
             //si la fecha es menor a la actual devolveremos al usuario la fecha actual
             $fechaActual = new DateTime('now');

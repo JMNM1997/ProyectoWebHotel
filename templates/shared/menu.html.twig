@@ -69,6 +69,9 @@
                                                 <li><a href="{{ path('app_register')}}">Registrate</a></li>
                                                 {% endif %}
                                                 {% if app.user %}
+                                                <li><a href="#">Modificar usuario</a></li>
+                                                {% endif %}
+                                                {% if app.user %}
                                                 <li><a href="{{ path('app_logout') }}">Cerrar Sesión</a></li>
                                                 {% endif %}
                                             </ul>

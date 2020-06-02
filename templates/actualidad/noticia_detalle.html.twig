@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Noticia{% endblock %}
+
+{% block body %}
+
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Portfolio Item Heading -->
+  <h2 class="my-4">
+    {{noticia.titular}}
+  </h2>
+  </br>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+
+    <div class="col-md-8">
+      <img class="img-fluid" src="{{ asset('imagenes/' ~ noticia.imagen) }}"  alt="" style="width: 60vh; height: 40vh;" class="img-fluid" alt="">
+      <br><br>
+      <p>{{noticia.descripcion}}</p>
+    </div>
+     
+  </div>
+
+  <br><br>
+  <!-- FECHA DE LA NOTICIA -->
+  <i>{{ noticia.fecha|date('Y-m-d') }}</i>
+
+
+
+  </div>
+
+<!-- /.container -->
+
+
+{% endblock %}

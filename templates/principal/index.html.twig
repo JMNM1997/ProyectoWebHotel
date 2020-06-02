@@ -215,8 +215,6 @@
                                                         </div>
                                                     </div>
 
-
-
                                                     <div class="single-select-box mb-30">
                                                         <div class="boking-tittle">
                                                             <span>Complementos:</span>
@@ -225,14 +223,10 @@
                                                             <div class="custom-control custom-checkbox">
                                                                 <input type="checkbox" id="nombre" name="nombre" value= "{{ nombre.idcomplemento }}">
                                                                 <label style="color: #dca73a;" for="complemento">  {{ nombre.nombre }} </label>
-                                                            </div>
-                                                            
-
+                                                            </div>          
                                                     {% endfor %}
                                                     </div>
-                                                    
-                                                                                    
-
+                                                                                  
                                                 <!-- Single Select Box -->
                                                 <button type="button" id="botonFiltro" class="btn btn-outline-success">Filtrar</button>
                                     
@@ -246,6 +240,7 @@
         <!-- Booking Room End-->
         <!-- test --> 
                 <div id="plantaDiv" class="container" style="position: relative;">
+
                     {% for habitaciones in listado %}
                     <div class="col-xl-4 col-lg-6 col-md-6">
                         <!-- Single Room -->

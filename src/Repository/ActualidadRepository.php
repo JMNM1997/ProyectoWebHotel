@@ -16,19 +16,16 @@ class ActualidadRepository extends ServiceEntityRepository
         parent::__construct($registry, Noticia::class);
     }
 
-    //Vamos a sacar las últimas 4 noticias
+    //Devuelve las últimas 4 noticias
 
     public function getUltimasNoticias()
     {
-
         $em = $this->getEntityManager();
         $consulta = $em->createQuery(
 
             'select n from App\Entity\Noticia n
             ORDER BY n.codnoticia DESC'
         )->setMaxResults(4);
-
-
 
         return $consulta->getResult();
     }
@@ -44,8 +41,19 @@ class ActualidadRepository extends ServiceEntityRepository
             Where n.titular LIKE :palabra'
         )->setParameter('palabra', '%' . $palabra . '%');
 
+        return $consulta->getResult();
+    }
 
+    // Filtro por categoria (noticias)
+    public function filtrocategoria($idCategoria)
+    {
 
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery(
+
+            'select n from App\Entity\Noticia n
+                Where n.categoriaIdcategoria = :idCategoria'
+        )->setParameter('idCategoria', $idCategoria);
 
         return $consulta->getResult();
     }
