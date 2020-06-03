@@ -5,12 +5,17 @@ namespace App\Form;
 use App\Entity\Complemento;
 use App\Entity\Habitacion;
 use App\Entity\Tipo;
+use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints\Range;
 
 class HabitacionType extends AbstractType
 {
@@ -20,7 +25,15 @@ class HabitacionType extends AbstractType
             ->add('tipoIdtipo', EntityType::class, [
                 'class' => Tipo::class, 'placeholder' => 'Elige un tipo de habitación'
             ])
-            ->add('planta')
+            ->add('planta', IntegerType::class, array(
+                'constraints' => new Range([
+                    'min' => 1,
+                    'max' => 4,
+                    'minMessage' => "You need to enter at least 1 characters",
+                    'maxMessage' => "You need to enter no more than 4 characters"
+                ]),
+            ))
+
             ->add('imagen', FileType::class, [
                 'label' => "Fichero de habitación",
                 "attr" => array("class" => "form-control"),

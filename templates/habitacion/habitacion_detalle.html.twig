@@ -21,6 +21,10 @@
     </div>
 
     <div class="col-md-4">
+      <h4 class="my-3">Número de habitación</h4>
+      <p>{{habitacion.id}}</p>
+      <br>
+
       <h4 class="my-3">Ubicación de la habitación (Planta)</h4>
       <p>{{habitacion.planta}}ª</p>
       <br>
@@ -33,6 +37,7 @@
       <br>
 
       <h4 class="my-3">Planifica tu estancia</h4>
+      <br>
           <form action={{ path('crear_reserva') }} method="post">
               <div class="booking-wrap d-flex justify-content-between align-items-center">
                     <!-- select in date -->
@@ -42,7 +47,7 @@
                           <span> Fecha de entrada:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="datepicker1" name="fechaEntrada"  placeholder="10/12/2022" value="10/12/2022" />
+                          <input id="datepicker1" name="fechaEntrada"  placeholder="06/19/2020" value="06/19/2020" />
                       </div>
                   </div>
                     <!-- Single Select Box -->
@@ -52,7 +57,7 @@
                           <span>Fecha de salida:</span>
                       </div>
                       <div class="boking-datepicker">
-                          <input id="datepicker2" name="fechaSalida"  placeholder="12/12/2022" value="12/12/2022" />
+                          <input id="datepicker2" name="fechaSalida"  placeholder="06/19/2020" value="06/19/2020" />
                       </div>
                   </div>
                 </div>
@@ -74,10 +79,6 @@
   </div>
   <!-- /.row -->
    <h3 class="my-4">Reserva esta magnifica habitación por los dias que desees.</h3>
-
-  <!-- Related Projects Row -->
-  <h5 class="my-4">Número de habitación</h5>
-  <p>{{habitacion.id}}</p>
 
 
   <div class="row">
