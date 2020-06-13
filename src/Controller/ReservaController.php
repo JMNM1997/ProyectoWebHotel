@@ -62,12 +62,12 @@ class ReservaController extends AbstractController
         $id = $this->getUser()->getId();
 
         //si el usuario es el administrador no podrá reservar, como es lógico
-        if ($id = 1) {
+        if ($id == 1) {
 
             return $this->redirectToRoute("reserva_index");
         }
 
-
+        //necesitamos ver a que cliente está logeado para asociarle la reserva
         $userid = $this->getDoctrine()->getRepository(Cliente::class)->findOneBy(['user' => $id]);
         $email = $userid->getUser()->getEmail();
         $reserva->setClienteCodcliente($userid);
