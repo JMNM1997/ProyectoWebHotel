@@ -18,6 +18,7 @@ use Swift_Message;
 use Swift_SmtpTransport;
 use Spipu\Html2Pdf\Html2Pdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Repository\ReservaRepository;
 
 
 class ReservaController extends AbstractController
@@ -53,7 +54,7 @@ class ReservaController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @return void
      */
-    public function crearReserva(\Swift_Mailer $mailer)
+    public function crearReserva(\Swift_Mailer $mailer, ReservaRepository $reservaRepository)
     {
 
         //primero el usuario en la bd
@@ -67,13 +68,12 @@ class ReservaController extends AbstractController
             return $this->redirectToRoute("reserva_index");
         }
 
+
+
         //necesitamos ver a que cliente está logeado para asociarle la reserva
         $userid = $this->getDoctrine()->getRepository(Cliente::class)->findOneBy(['user' => $id]);
         $email = $userid->getUser()->getEmail();
         $reserva->setClienteCodcliente($userid);
-        $habitacionCodhabitacion = $_POST['habitacionCodhabitacion'];
-        $habid = $this->getDoctrine()->getRepository(Habitacion::class)->findOneBy(['codhabitacion' => $habitacionCodhabitacion]);
-        $reserva->setHabitacionCodhabitacion($habid);
 
         // fechas
 
@@ -98,11 +98,39 @@ class ReservaController extends AbstractController
             $fechaSalidaDATE = $fechaActualMas1;
         }
 
+        $habitacionCodhabitacion = $_POST['habitacionCodhabitacion'];
+
+
+
+        //prueba para controlar si esa habitacion se puede reservar o no
+        $habitacionesDisponibles = $reservaRepository->getHabitacionesDisponibles($fechaEntradaDATE, $fechaEntradaDATE);
+
+        //vamos a declarar una variable para controlar si esa habitacion esta definitivamente disponible
+
+        $existe = false;
+        $existe == false;
+        foreach ($habitacionesDisponibles as $hDisponibles) {
+            if (($hDisponibles->getCodhabitacion()) == (int) $habitacionCodhabitacion) {
+
+                $existe = true;
+            }
+        }
+
+        if ($existe == false) {
+            return $this->redirectToRoute("reserva_index");
+        }
+
+
+        $habid = $this->getDoctrine()->getRepository(Habitacion::class)->findOneBy(['codhabitacion' => $habitacionCodhabitacion]);
+        $reserva->setHabitacionCodhabitacion($habid);
+
+
+
 
         //asignar fechas al objeto reserva
 
         $reserva->setFechaEntrada($fechaEntradaDATE);
-        $reserva->setFechaSalida($fechaSalidaDATE);
+        $reserva->setFechaSalida($fechaEntradaDATE);
 
 
         $em = $this->getDoctrine()->getManager();

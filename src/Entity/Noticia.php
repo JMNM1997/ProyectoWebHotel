@@ -50,7 +50,6 @@ class Noticia
      * @var \DateTime
      *
      * @ORM\Column(name="fecha", type="datetime", nullable=false)
-     * @Assert\LessThan("today")
      */
 
     private $fecha;

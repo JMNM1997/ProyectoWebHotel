@@ -27,6 +27,9 @@ class ActualidadController extends AbstractController
             ->getRepository(Categoria::class)
             ->findAll();
 
+        //sacar ultimas 4 noticias
+        $ultimasNoticias = $actualidadRepository->getUltimasNoticias();
+
         // buscamos las palabras de un titular
         if (isset($_GET['buscar'])) {
 
@@ -39,11 +42,12 @@ class ActualidadController extends AbstractController
                 $request->query->getInt('page', 1), /*page number*/
                 4 /*limit per page*/
             );
+            return $this->render('actualidad/noticias.html.twig', [
+                'listado' => $listado, 'categorias' => $categorias, 'ultimasNoticias' => $ultimasNoticias,
+            ]);
         }
 
 
-        //sacar ultimas 4 noticias
-        $ultimasNoticias = $actualidadRepository->getUltimasNoticias();
 
         $listado = $paginator->paginate(
             $noticias, /* query NOT result */
